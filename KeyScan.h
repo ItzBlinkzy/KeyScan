@@ -10,6 +10,7 @@ class KeyScan : public QMainWindow
 public:
     KeyScan(QWidget *parent = nullptr);
     ~KeyScan();
+    void addButtonToKeyboardLayout();
 
 private:
     Ui::KeyScanClass ui;
