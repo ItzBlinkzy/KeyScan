@@ -1,0 +1,49 @@
+# build outputs
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.idb
+*.dll
+*.lib
+*.log
+*.exp
+
+# Visual Studio specific files
+.vscode/
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.vcxproj.filters
+*.ipch
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cache
+*.tlog/
+*.lastbuildstate
+
+# build directories
+Debug/
+Release/
+x64/
+build/
+
+# package management
+packages/
+.vcpkg-root
+
+# generated files or folders
+*.generated.*
+*.log
+*.tmp
+*.bak
+*.dmp
+
+# CMake build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
