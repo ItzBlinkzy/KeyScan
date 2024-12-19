@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1079</width>
-    <height>693</height>
+    <width>1308</width>
+    <height>752</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>KeyScan</string>
@@ -96,36 +102,21 @@ QPushButton:hover {
      <rect>
       <x>110</x>
       <y>10</y>
-      <width>951</width>
+      <width>1191</width>
       <height>491</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
-        background-color: #E0E0E0;
-        border: 1px solid #A0A0A0;
-        border-radius: 6px;
-		padding: 5px 10px;
-        font: bold 12px &quot;Arial&quot;;
-        min-width: 20px;
-		margin: 2px;
-        min-height: 20px;;
-    }
-
-    QPushButton:hover {
-        background-color: #D0D0D0;
-    }
-
-    QPushButton:pressed {
-        background-color: #C0C0C0;
-        border-style: inset;
-        padding-top: 6px;
-    }
-
-    QPushButton:disabled {
-        background-color: #F0F0F0;
-        color: #A0A0A0;
-    }</string>
+    background-color: #f1f5f9;   
+    border: 1px solid #9ca3af;    
+    border-radius: 6px;            
+    padding: 5px 10px;
+    font: bold 12px &quot;Arial&quot;;
+    min-width: 20px;
+    margin: 2px;
+    min-height: 20px;
+}</string>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget_7">
      <property name="geometry">
@@ -196,9 +187,9 @@ QPushButton:hover {
     <widget class="QWidget" name="KeyArrowsContainer" native="true">
      <property name="geometry">
       <rect>
-       <x>770</x>
+       <x>760</x>
        <y>269</y>
-       <width>151</width>
+       <width>171</width>
        <height>121</height>
       </rect>
      </property>
@@ -207,7 +198,7 @@ QPushButton:hover {
        <rect>
         <x>0</x>
         <y>70</y>
-        <width>151</width>
+        <width>171</width>
         <height>51</height>
        </rect>
       </property>
@@ -218,7 +209,7 @@ QPushButton:hover {
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>151</width>
+        <width>171</width>
         <height>51</height>
        </rect>
       </property>
@@ -230,7 +221,7 @@ QPushButton:hover {
       <rect>
        <x>760</x>
        <y>30</y>
-       <width>160</width>
+       <width>171</width>
        <height>51</height>
       </rect>
      </property>
@@ -241,11 +232,22 @@ QPushButton:hover {
       <rect>
        <x>760</x>
        <y>90</y>
-       <width>160</width>
+       <width>171</width>
        <height>51</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="row_8_layout"/>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_11">
+     <property name="geometry">
+      <rect>
+       <x>950</x>
+       <y>30</y>
+       <width>191</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="numpad_layout"/>
     </widget>
    </widget>
   </widget>

@@ -17,5 +17,5 @@ public:
 
 private:
     Ui::KeyScanClass ui;
-    QMap<QString, QPushButton*> buttons;
+    QMap<uint8_t, QPushButton*> buttons;
 };

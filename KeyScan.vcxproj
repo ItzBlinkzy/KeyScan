@@ -98,6 +98,7 @@
     <ClCompile Include="KeyScan.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include=".gitignore" />
+    <None Include="issues.md" />
     <None Include="KeyScan.ico" />
     <ResourceCompile Include="KeyScan.rc" />
   </ItemGroup>
