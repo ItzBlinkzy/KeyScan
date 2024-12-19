@@ -6,7 +6,7 @@
 #include <Windows.h>
 #include <QKeyEvent>
 #include <QTimer>
-
+#include <qlabel.h>
 struct KeyMapping {
     QString keyText;
     uint16_t virtualKey;
@@ -157,6 +157,13 @@ void KeyScan::keyReleaseEvent(QKeyEvent* event) {
 }
 void KeyScan::changeButtonColor(QPushButton* button, QString stylesheet) {
     button->setStyleSheet(stylesheet);
+}
+
+void KeyScan::updateLastKeyPressedText(QLabel* label, uint16_t virtual_key) {
+
+}
+
+void KeyScan::updateTotalWorkingKeys(QLabel* label, uint16_t working_key_count) {
 }
 
 

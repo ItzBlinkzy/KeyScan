@@ -12,8 +12,9 @@ public:
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
     void changeButtonColor(QPushButton* button, QString stylesheet);
+    void updateLastKeyPressedText(QLabel* label, uint16_t virtual_key);
+    void updateTotalWorkingKeys(QLabel* label, uint16_t working_key_count);
     ~KeyScan();
-    void addButtonToKeyboardLayout();
 
 private:
     Ui::KeyScanClass ui;

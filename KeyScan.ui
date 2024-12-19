@@ -254,6 +254,39 @@ QPushButton:hover {
      <layout class="QHBoxLayout" name="numpad_layout"/>
     </widget>
    </widget>
+   <widget class="QWidget" name="InformationWidget1" native="true">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>510</y>
+      <width>291</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>151</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>You have </string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="InformationWidget2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>510</y>
+      <width>351</width>
+      <height>211</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
