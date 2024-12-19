@@ -101,9 +101,9 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>10</y>
-      <width>1191</width>
-      <height>491</height>
+      <y>140</y>
+      <width>1151</width>
+      <height>361</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -116,13 +116,17 @@ QPushButton:hover {
     min-width: 20px;
     margin: 2px;
     min-height: 20px;
+}
+#KeyboardContainer {
+   background-color: #86efac;
+   border-radius: 10px;
 }</string>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget_7">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>270</y>
+       <y>230</y>
        <width>741</width>
        <height>51</height>
       </rect>
@@ -133,7 +137,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>180</y>
        <width>741</width>
        <height>51</height>
       </rect>
@@ -144,7 +148,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>90</y>
+       <y>80</y>
        <width>741</width>
        <height>51</height>
       </rect>
@@ -166,7 +170,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>130</y>
        <width>741</width>
        <height>51</height>
       </rect>
@@ -177,7 +181,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>340</y>
+       <y>280</y>
        <width>741</width>
        <height>51</height>
       </rect>
@@ -188,7 +192,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>760</x>
-       <y>269</y>
+       <y>160</y>
        <width>171</width>
        <height>121</height>
       </rect>
@@ -244,7 +248,7 @@ QPushButton:hover {
        <x>950</x>
        <y>30</y>
        <width>191</width>
-       <height>371</height>
+       <height>301</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="numpad_layout"/>
