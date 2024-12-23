@@ -16,6 +16,5 @@ int main(int argc, char *argv[])
     KeyScan w;
     QTimer::singleShot(2000, splash, SLOT(close()));
     QTimer::singleShot(2000, &w, SLOT(show()));
-
     return a.exec();
 }
