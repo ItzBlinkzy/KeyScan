@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>KeyScan</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <property name="tabShape">
    <enum>QTabWidget::TabShape::Triangular</enum>
   </property>
@@ -100,8 +103,8 @@ QPushButton:hover {
    <widget class="QWidget" name="KeyboardContainer" native="true">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>100</y>
+      <x>120</x>
+      <y>170</y>
       <width>1151</width>
       <height>321</height>
      </rect>
@@ -198,14 +201,14 @@ QPushButton:hover {
        <x>760</x>
        <y>190</y>
        <width>191</width>
-       <height>121</height>
+       <height>101</height>
       </rect>
      </property>
      <widget class="QWidget" name="horizontalLayoutWidget_2">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>70</y>
+        <y>50</y>
         <width>191</width>
         <height>51</height>
        </rect>
@@ -216,7 +219,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>20</y>
+        <y>0</y>
         <width>191</width>
         <height>51</height>
        </rect>
@@ -228,7 +231,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>760</x>
-       <y>30</y>
+       <y>10</y>
        <width>191</width>
        <height>51</height>
       </rect>
@@ -239,7 +242,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>760</x>
-       <y>80</y>
+       <y>60</y>
        <width>191</width>
        <height>51</height>
       </rect>
@@ -261,23 +264,61 @@ QPushButton:hover {
    <widget class="QWidget" name="RecentKeyContainer" native="true">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>470</y>
-      <width>771</width>
+      <x>120</x>
+      <y>80</y>
+      <width>411</width>
       <height>80</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#RecentKeyContainer {
+background-color: #e2e8f0;
+border-radius: 8px;
+}
+
+QPushButton {
+    background-color: #d4d4d8;
+    border: 2px solid #3f3f46;
+    border-radius: 6px;       
+    font: bold 12px &quot;Arial&quot;;   /* Bold font for clarity */
+    max-width: 40px;           /* Wider key width */
+    max-height: 40px;          /* Taller key height */
+    text-align: center;        /* Center text for button */
+}</string>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget_12">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>771</width>
+       <width>411</width>
        <height>80</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="recent_key_layout"/>
+     <layout class="QHBoxLayout" name="recent_key_layout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+     </layout>
     </widget>
+   </widget>
+   <widget class="QLabel" name="recent_key_text">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>30</y>
+      <width>251</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#recent_key_text {
+font-size: 30px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Last Key's pressed</string>
+    </property>
    </widget>
   </widget>
  </widget>

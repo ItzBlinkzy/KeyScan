@@ -89,7 +89,7 @@ QString findKeyText(uint16_t virtualKey, const QList<QList<KeyMapping>>& layout)
 void KeyScan::keyPressEvent(QKeyEvent* event) {
     quint32 virtual_key = event->nativeVirtualKey();
     qDebug() << "Windows Virtual Key Code:" << virtual_key;
-    qDebug() << "Real Key Name" << buttons[virtual_key];
+    qDebug() << "Real Key Name" << findKeyText(virtual_key, keyboard_layout);
     
     recent_keys.add(findKeyText(virtual_key, keyboard_layout), ui.recent_key_layout);
 

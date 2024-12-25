@@ -34,21 +34,19 @@ public:
     static constexpr size_t MAX_SIZE = 5;
     using ValueType = QString;
 
-    RecentKeyList() = default;
-
-    void add(ValueType value, QLayout* layout) {
+    void add(ValueType value, QHBoxLayout* layout) {
         
         while (layout->count() >= MAX_SIZE) {
             // remove and delete the oldest widget if reached max_size
-            QLayoutItem* item = layout->takeAt(0);
+            QLayoutItem* item = layout->takeAt(layout->count() - 1);
             if (item) {
                 delete item->widget(); 
                 delete item;           
             }
         }
 
-        // add most recent key pressed
+        // add most recent key pressedTHYH
         QPushButton* button = new QPushButton(value);
-        layout->addWidget(button);
+        layout->insertWidget(0, button);
     }
 };
