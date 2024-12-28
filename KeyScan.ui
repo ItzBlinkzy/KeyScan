@@ -29,82 +29,11 @@
    <property name="layoutDirection">
     <enum>Qt::LayoutDirection::LeftToRight</enum>
    </property>
-   <widget class="QWidget" name="NavbarContainer" native="true">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>101</width>
-      <height>691</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: gray;
-    padding: 5px;
-    border-radius: 4px;
-    font-weight: bold;
-    margin: 7px; 
-}
-
-QPushButton:hover {
-    background-color: white;
-    border: 1px solid #CCCCCC
-}
-</string>
-    </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>105</width>
-       <height>691</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="NavbarLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
-      </property>
-      <item>
-       <widget class="QPushButton" name="home_button">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset theme="QIcon::ThemeIcon::GoHome"/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="keyboard_tester_button">
-        <property name="text">
-         <string>KeyTest</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="typing_test_button">
-        <property name="text">
-         <string>TypingTest</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="key_remapper_button">
-        <property name="text">
-         <string>KeyRemapper</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
    <widget class="QWidget" name="KeyboardContainer" native="true">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>170</y>
+      <x>20</x>
+      <y>150</y>
       <width>1151</width>
       <height>321</height>
      </rect>
@@ -201,14 +130,14 @@ QPushButton:hover {
        <x>760</x>
        <y>190</y>
        <width>191</width>
-       <height>101</height>
+       <height>121</height>
       </rect>
      </property>
      <widget class="QWidget" name="horizontalLayoutWidget_2">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>50</y>
+        <y>70</y>
         <width>191</width>
         <height>51</height>
        </rect>
@@ -219,7 +148,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>20</y>
         <width>191</width>
         <height>51</height>
        </rect>
@@ -264,8 +193,8 @@ QPushButton:hover {
    <widget class="QWidget" name="RecentKeyContainer" native="true">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>80</y>
+      <x>20</x>
+      <y>60</y>
       <width>411</width>
       <height>80</height>
      </rect>
@@ -279,6 +208,7 @@ border-radius: 8px;
 QPushButton {
     background-color: #d4d4d8;
     border: 2px solid #3f3f46;
+    border-bottom-width: 3px; 
     border-radius: 6px;       
     font: bold 12px &quot;Arial&quot;;   /* Bold font for clarity */
     max-width: 40px;           /* Wider key width */
@@ -305,8 +235,8 @@ QPushButton {
    <widget class="QLabel" name="recent_key_text">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>30</y>
+      <x>20</x>
+      <y>10</y>
       <width>251</width>
       <height>41</height>
      </rect>
@@ -320,6 +250,35 @@ font-size: 30px;
      <string>Last Key's pressed</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1308</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuTyping_Test">
+    <property name="title">
+     <string>Typing Test</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuKey_Remapper">
+    <property name="title">
+     <string>Key Remapper</string>
+    </property>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuKey_Test">
+    <property name="title">
+     <string>Key Test</string>
+    </property>
+   </widget>
+   <addaction name="menuKey_Test"/>
+   <addaction name="menuTyping_Test"/>
+   <addaction name="menuKey_Remapper"/>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
