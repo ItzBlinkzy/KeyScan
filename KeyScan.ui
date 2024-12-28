@@ -25,21 +25,82 @@
   <property name="tabShape">
    <enum>QTabWidget::TabShape::Triangular</enum>
   </property>
-  <widget class="QWidget" name="centralWidget">
+  <widget class="QWidget" name="MainWindowContainer">
    <property name="layoutDirection">
     <enum>Qt::LayoutDirection::LeftToRight</enum>
    </property>
-   <widget class="QWidget" name="KeyboardContainer" native="true">
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>150</y>
-      <width>1151</width>
-      <height>321</height>
+      <x>0</x>
+      <y>0</y>
+      <width>1251</width>
+      <height>731</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="standard_typing_test_widget">
+     <widget class="QWidget" name="typing_test_container" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1251</width>
+        <height>731</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>10</y>
+         <width>1161</width>
+         <height>281</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">* {
+font-size: 60px;
+}</string>
+       </property>
+       <property name="text">
+        <string>typing test page will be here ya feel</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="key_test_widget">
+     <widget class="QLabel" name="recent_key_text">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>251</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#recent_key_text {
+font-size: 30px;
+}</string>
+      </property>
+      <property name="text">
+       <string>Last Key's pressed</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="KeyboardContainer" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>1151</width>
+        <height>321</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
     background-color: #e0f2fe;  
     border: 1px solid #38bdf8; 
     border-radius: 6px;        
@@ -57,150 +118,150 @@
    border-radius: 10px;
    border: 1px solid #94a3b8
 }</string>
-    </property>
-    <widget class="QWidget" name="horizontalLayoutWidget_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>210</y>
-       <width>741</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="row5_layout"/>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>160</y>
-       <width>741</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="row4_layout"/>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>60</y>
-       <width>741</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="row2_layout"/>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>741</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="f1_layout"/>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>110</y>
-       <width>741</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="row3_layout"/>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_10">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>260</y>
-       <width>741</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="row6_layout"/>
-    </widget>
-    <widget class="QWidget" name="KeyArrowsContainer" native="true">
-     <property name="geometry">
-      <rect>
-       <x>760</x>
-       <y>190</y>
-       <width>191</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <widget class="QWidget" name="horizontalLayoutWidget_2">
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>210</y>
+         <width>741</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="row5_layout"/>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>160</y>
+         <width>741</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="row4_layout"/>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>741</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="row2_layout"/>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>741</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="f1_layout"/>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget_9">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>741</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="row3_layout"/>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget_10">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>260</y>
+         <width>741</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="row6_layout"/>
+      </widget>
+      <widget class="QWidget" name="KeyArrowsContainer" native="true">
+       <property name="geometry">
+        <rect>
+         <x>760</x>
+         <y>190</y>
+         <width>191</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <widget class="QWidget" name="horizontalLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>70</y>
+          <width>191</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="bottom_arrow_layout"/>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>191</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="top_arrow_layout"/>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget_5">
+       <property name="geometry">
+        <rect>
+         <x>760</x>
+         <y>10</y>
+         <width>191</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="row_7_layout"/>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget_6">
+       <property name="geometry">
+        <rect>
+         <x>760</x>
+         <y>60</y>
+         <width>191</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="row_8_layout"/>
+      </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget_11">
+       <property name="geometry">
+        <rect>
+         <x>960</x>
+         <y>10</y>
+         <width>181</width>
+         <height>301</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="numpad_layout"/>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="RecentKeyContainer" native="true">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>70</y>
-        <width>191</width>
-        <height>51</height>
+        <x>10</x>
+        <y>60</y>
+        <width>411</width>
+        <height>80</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="bottom_arrow_layout"/>
-     </widget>
-     <widget class="QWidget" name="horizontalLayoutWidget_4">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>20</y>
-        <width>191</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="top_arrow_layout"/>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_5">
-     <property name="geometry">
-      <rect>
-       <x>760</x>
-       <y>10</y>
-       <width>191</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="row_7_layout"/>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_6">
-     <property name="geometry">
-      <rect>
-       <x>760</x>
-       <y>60</y>
-       <width>191</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="row_8_layout"/>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_11">
-     <property name="geometry">
-      <rect>
-       <x>960</x>
-       <y>10</y>
-       <width>181</width>
-       <height>301</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="numpad_layout"/>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="RecentKeyContainer" native="true">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>411</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">#RecentKeyContainer {
+      <property name="styleSheet">
+       <string notr="true">#RecentKeyContainer {
 background-color: #e2e8f0;
 border-radius: 8px;
 }
@@ -215,40 +276,24 @@ QPushButton {
     max-height: 40px;          /* Taller key height */
     text-align: center;        /* Center text for button */
 }</string>
-    </property>
-    <widget class="QWidget" name="horizontalLayoutWidget_12">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>411</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="recent_key_layout">
-      <property name="spacing">
-       <number>0</number>
       </property>
-     </layout>
+      <widget class="QWidget" name="horizontalLayoutWidget_12">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>411</width>
+         <height>80</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="recent_key_layout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
+     </widget>
     </widget>
-   </widget>
-   <widget class="QLabel" name="recent_key_text">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>251</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">#recent_key_text {
-font-size: 30px;
-}</string>
-    </property>
-    <property name="text">
-     <string>Last Key's pressed</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -260,26 +305,44 @@ font-size: 30px;
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuTyping_Test">
+   <widget class="QMenu" name="menu_typing_test">
     <property name="title">
      <string>Typing Test</string>
     </property>
+    <addaction name="action_standard_typing_test"/>
    </widget>
-   <widget class="QMenu" name="menuKey_Remapper">
+   <widget class="QMenu" name="menu_key_remapper">
     <property name="title">
-     <string>Key Remapper</string>
+     <string>Remapper</string>
     </property>
     <addaction name="separator"/>
+    <addaction name="action_key_remapper"/>
    </widget>
-   <widget class="QMenu" name="menuKey_Test">
+   <widget class="QMenu" name="menu_key_test">
     <property name="title">
      <string>Key Test</string>
     </property>
+    <addaction name="action_key_test"/>
    </widget>
-   <addaction name="menuKey_Test"/>
-   <addaction name="menuTyping_Test"/>
-   <addaction name="menuKey_Remapper"/>
+   <addaction name="menu_key_test"/>
+   <addaction name="menu_typing_test"/>
+   <addaction name="menu_key_remapper"/>
   </widget>
+  <action name="action_key_test">
+   <property name="text">
+    <string>Full Keyboard Test</string>
+   </property>
+  </action>
+  <action name="action_standard_typing_test">
+   <property name="text">
+    <string>Standard Typing Test</string>
+   </property>
+  </action>
+  <action name="action_key_remapper">
+   <property name="text">
+    <string>Remap your Keyboard</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

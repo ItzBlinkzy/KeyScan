@@ -16,6 +16,12 @@ KeyScan::KeyScan(QWidget *parent)
     this->setFixedSize(1280, 720);
     ui.setupUi(this);
 
+    // make default to be key test
+    ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
+    connect(ui.action_key_test, &QAction::triggered, this, &KeyScan::onMenuKeyTestClicked);
+    connect(ui.action_standard_typing_test, &QAction::triggered, this, &KeyScan::onMenuTypingTestClicked);
+
+
     QList<QHBoxLayout*> layouts = {
          ui.f1_layout,
          ui.row2_layout,
@@ -41,35 +47,35 @@ KeyScan::KeyScan(QWidget *parent)
 }
 
 
-QString findKeyText(uint16_t virtualKey, const QList<QList<KeyMapping>>& layout) {
-    if (virtualKey == VK_SHIFT) {
+QString findKeyText(uint16_t virtual_key, const QList<QList<KeyMapping>>& layout) {
+    if (virtual_key == VK_SHIFT) {
         if ((GetKeyState(VK_LSHIFT) & 0x8000)) {
-            virtualKey = VK_LSHIFT;
+            virtual_key = VK_LSHIFT;
         }
         else if ((GetKeyState(VK_RSHIFT) & 0x8000)) {
-            virtualKey = VK_RSHIFT;
+            virtual_key = VK_RSHIFT;
         }
     }
-    else if (virtualKey == VK_CONTROL) {
+    else if (virtual_key == VK_CONTROL) {
         if ((GetKeyState(VK_LCONTROL) & 0x8000)) {
-            virtualKey = VK_LCONTROL;
+            virtual_key = VK_LCONTROL;
         }
         else if ((GetKeyState(VK_RCONTROL) & 0x8000)) {
-            virtualKey = VK_RCONTROL;
+            virtual_key = VK_RCONTROL;
         }
     }
-    else if (virtualKey == VK_MENU) {
+    else if (virtual_key == VK_MENU) {
         if ((GetKeyState(VK_LMENU) & 0x8000)) {
-            virtualKey = VK_LMENU;
+            virtual_key = VK_LMENU;
         }
         else if ((GetKeyState(VK_RMENU) & 0x8000)) {
-            virtualKey = VK_RMENU;
+            virtual_key = VK_RMENU;
         }
     }
 
     for (const auto& row : layout) {
         for (const auto& key : row) {
-            if (key.virtualKey == virtualKey) {
+            if (key.virtualKey == virtual_key) {
                 return key.keyText;
             }
         }
@@ -167,11 +173,22 @@ void KeyScan::keyReleaseEvent(QKeyEvent* event) {
 
     }
 }
+
 void KeyScan::modifyButtonStyle(QPushButton* button, QString stylesheet) {
     button->setStyleSheet(stylesheet);
 }
+
+void KeyScan::onMenuKeyTestClicked(bool checked) {
+    ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
+}
+void KeyScan::onMenuTypingTestClicked(bool checked) {
+    ui.stackedWidget->setCurrentWidget(ui.standard_typing_test_widget);
+}
+
 
 
 KeyScan::~KeyScan()
 {
 }
+
+// add reset button to key test page
