@@ -24,6 +24,7 @@ public:
     void modifyButtonStyle(QPushButton* button, QString stylesheet);
     void onMenuKeyTestClicked(bool checked);
     void onMenuTypingTestClicked(bool checked);
+    void resetKeyboard(Ui::KeyScanClass* ui);
 
     ~KeyScan();
 

@@ -22,22 +22,19 @@ KeyScan::KeyScan(QWidget *parent)
     ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
 
     // menubar click handlers
-    connect(ui.action_key_test, &QAction::triggered, this, &KeyScan::onMenuKeyTestClicked);
+
+
+    connect(ui.action_key_test, &QAction::triggered, this, [this]() {
+        ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
+        resetKeyboard(&ui);
+    });
+
     connect(ui.action_standard_typing_test, &QAction::triggered, this, &KeyScan::onMenuTypingTestClicked);
 
 
     // other button click handlers
     connect(ui.reset_keyboard_button, &QPushButton::clicked, this, [this]() {
-        // reset the recent keys list to empty
-        recent_keys.resetRecentKeyList(ui.recent_key_layout);
-
-        // reset keyboard keys to original colour
-        QWidget* keyboard_container = ui.KeyboardContainer;
-        qDebug() << keyboard_container->styleSheet();
-
-        for (QPushButton* button : ui.KeyboardContainer->findChildren<QPushButton*>()) {
-            button->setStyleSheet("background-color: #e0f2fe;");
-        }
+        resetKeyboard(&ui);
     });
 
     QList<QHBoxLayout*> layouts = {
@@ -103,6 +100,8 @@ QString findKeyText(uint16_t virtual_key, const QList<QList<KeyMapping>>& layout
 }
 
 
+// need checks to run certain pieces of code in keyreleaseevent for different screens e.g changing stylesheet of button when in diff screen
+
 
 void KeyScan::keyPressEvent(QKeyEvent* event) {
     quint32 virtual_key = event->nativeVirtualKey();
@@ -148,6 +147,8 @@ void KeyScan::keyPressEvent(QKeyEvent* event) {
     }
 }
 
+
+// need checks to run certain pieces of code in keyreleaseevent for different screens e.g changing stylesheet of button when in diff screen
 
 
 void KeyScan::keyReleaseEvent(QKeyEvent* event) {
@@ -196,11 +197,21 @@ void KeyScan::modifyButtonStyle(QPushButton* button, QString stylesheet) {
     button->setStyleSheet(stylesheet);
 }
 
-void KeyScan::onMenuKeyTestClicked(bool checked) {
-    ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
-}
 void KeyScan::onMenuTypingTestClicked(bool checked) {
     ui.stackedWidget->setCurrentWidget(ui.standard_typing_test_widget);
+}
+
+void KeyScan::resetKeyboard(Ui::KeyScanClass* ui) {
+    // reset the recent keys list to empty
+    recent_keys.resetRecentKeyList(ui->recent_key_layout);
+
+    // reset keyboard keys to original colour
+    QWidget* keyboard_container = ui->KeyboardContainer;
+    qDebug() << keyboard_container->styleSheet();
+
+    for (QPushButton* button : ui->KeyboardContainer->findChildren<QPushButton*>()) {
+        button->setStyleSheet("background-color: #e0f2fe;");
+    }
 }
 
 
