@@ -49,9 +49,17 @@ public:
             }
         }
 
-        // add most recent key pressedTHYH
+        // add most recent key pressed
         QPushButton* button = new QPushButton(value);
         layout->addWidget(button);
+    }
+    
+
+    void resetRecentKeyList(QHBoxLayout* layout) {
+        while (QLayoutItem* item = layout->takeAt(0)) {
+            delete item->widget();
+            delete item;
+        }
     }
 };
 

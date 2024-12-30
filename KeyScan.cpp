@@ -16,11 +16,29 @@ KeyScan::KeyScan(QWidget *parent)
     this->setFixedSize(1280, 720);
     ui.setupUi(this);
 
-    // make default to be key test
+    ui.reset_keyboard_button->setFocusPolicy(Qt::NoFocus);
+
+    // make default screen to be key test widget
     ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
+
+    // menubar click handlers
     connect(ui.action_key_test, &QAction::triggered, this, &KeyScan::onMenuKeyTestClicked);
     connect(ui.action_standard_typing_test, &QAction::triggered, this, &KeyScan::onMenuTypingTestClicked);
 
+
+    // other button click handlers
+    connect(ui.reset_keyboard_button, &QPushButton::clicked, this, [this]() {
+        // reset the recent keys list to empty
+        recent_keys.resetRecentKeyList(ui.recent_key_layout);
+
+        // reset keyboard keys to original colour
+        QWidget* keyboard_container = ui.KeyboardContainer;
+        qDebug() << keyboard_container->styleSheet();
+
+        for (QPushButton* button : ui.KeyboardContainer->findChildren<QPushButton*>()) {
+            button->setStyleSheet("background-color: #e0f2fe;");
+        }
+    });
 
     QList<QHBoxLayout*> layouts = {
          ui.f1_layout,
@@ -36,7 +54,7 @@ KeyScan::KeyScan(QWidget *parent)
          //ui.numpad_layout
     };
 
-    for (int i = 0; i < layouts.size(); i++) {
+    for (size_t i = 0; i < layouts.size(); i++) {
         for (const KeyMapping& key : keyboard_layout[i]) {
             QPushButton* button = new QPushButton(key.keyText); 
             layouts[i]->addWidget(button);  
@@ -186,9 +204,7 @@ void KeyScan::onMenuTypingTestClicked(bool checked) {
 }
 
 
-
 KeyScan::~KeyScan()
 {
 }
 
-// add reset button to key test page

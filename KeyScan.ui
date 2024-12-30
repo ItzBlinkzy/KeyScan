@@ -77,7 +77,7 @@ font-size: 60px;
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>251</width>
+        <width>281</width>
         <height>41</height>
        </rect>
       </property>
@@ -87,7 +87,7 @@ font-size: 30px;
 }</string>
       </property>
       <property name="text">
-       <string>Last Key's pressed</string>
+       <string>Recent Keys Pressed</string>
       </property>
      </widget>
      <widget class="QWidget" name="KeyboardContainer" native="true">
@@ -292,6 +292,19 @@ QPushButton {
         </property>
        </layout>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="reset_keyboard_button">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>100</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset Keyboard</string>
+      </property>
      </widget>
     </widget>
    </widget>
