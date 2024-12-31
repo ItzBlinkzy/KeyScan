@@ -94,6 +94,7 @@
   <ItemGroup>
     <QtRcc Include="KeyScan.qrc" />
     <QtUic Include="KeyScan.ui" />
+    <ClCompile Include="KeyRemapper.cpp" />
     <ClCompile Include="KeyScan.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include=".gitignore" />
@@ -103,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KeyScan.h" />
+    <QtMoc Include="KeyRemapper.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1308</width>
-    <height>752</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -33,9 +33,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>1251</width>
-      <height>731</height>
+      <y>20</y>
+      <width>2791</width>
+      <height>751</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -47,7 +47,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1251</width>
+        <width>1321</width>
         <height>731</height>
        </rect>
       </property>
@@ -69,6 +69,101 @@ font-size: 60px;
         <string>typing test page will be here ya feel</string>
        </property>
       </widget>
+      <widget class="QWidget" name="ThirdPage" native="true">
+       <property name="geometry">
+        <rect>
+         <x>1190</x>
+         <y>-30</y>
+         <width>120</width>
+         <height>80</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="remapper_page">
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>0</y>
+        <width>401</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">* {
+font-size: 60px;
+}</string>
+      </property>
+      <property name="text">
+       <string>Key Remapper</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>120</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">* {
+font-size: 45px;
+}</string>
+      </property>
+      <property name="text">
+       <string>Bindings</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="bindings_list_container" native="true">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>190</y>
+        <width>481</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>481</width>
+         <height>481</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="bindings_layout"/>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>1160</x>
+        <y>140</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear All Bindings</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>321</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>WIP: key remapping works only when this page is showing</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="key_test_widget">
@@ -314,7 +409,7 @@ QPushButton {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1308</width>
+     <width>1280</width>
      <height>21</height>
     </rect>
    </property>

@@ -25,7 +25,7 @@ public:
     void onMenuKeyTestClicked(bool checked);
     void onMenuTypingTestClicked(bool checked);
     void resetKeyboard(Ui::KeyScanClass* ui);
-
+    QString KeyNameFromScanCode(const unsigned scanCode);
     ~KeyScan();
 
 private:
