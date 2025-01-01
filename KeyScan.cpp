@@ -14,6 +14,7 @@ KeyRemapper* remapper;
 KeyScan::KeyScan(QWidget *parent)
     : QMainWindow(parent)
 {
+
     this->setFixedSize(1280, 720);
     ui.setupUi(this);
 
@@ -92,54 +93,14 @@ KeyScan::KeyScan(QWidget *parent)
     }
 }
 
-// optimize later with early returns etc.
-QString findKeyText(uint16_t virtual_key, const QList<QList<KeyMapping>>& layout) {
-    if (virtual_key == VK_SHIFT) {
-        if ((GetKeyState(VK_LSHIFT) & 0x8000)) {
-            virtual_key = VK_LSHIFT;
-        }
-        else if ((GetKeyState(VK_RSHIFT) & 0x8000)) {
-            virtual_key = VK_RSHIFT;
-        }
-    }
-    else if (virtual_key == VK_CONTROL) {
-        if ((GetKeyState(VK_LCONTROL) & 0x8000)) {
-            virtual_key = VK_LCONTROL;
-        }
-        else if ((GetKeyState(VK_RCONTROL) & 0x8000)) {
-            virtual_key = VK_RCONTROL;
-        }
-    }
-    else if (virtual_key == VK_MENU) {
-        if ((GetKeyState(VK_LMENU) & 0x8000)) {
-            virtual_key = VK_LMENU;
-        }
-        else if ((GetKeyState(VK_RMENU) & 0x8000)) {
-            virtual_key = VK_RMENU;
-        }
-    }
-
-    for (const auto& row : layout) {
-        for (const auto& key : row) {
-            if (key.virtualKey == virtual_key) {
-                return key.keyText;
-            }
-        }
-    }
-
-    return QString("UNK");
-}
-
-
 // need checks to run certain pieces of code in keyreleaseevent for different screens e.g changing stylesheet of button when in diff screen
-
 
 void KeyScan::keyPressEvent(QKeyEvent* event) {
 
     quint32 virtual_key = event->nativeVirtualKey();
     quint32 scan_code = event->nativeScanCode();
     qDebug() << "Windows Virtual Key Code:" << virtual_key;
-    qDebug() << "Real Key Name" << findKeyText(virtual_key, keyboard_layout);
+    qDebug() << "Real Key Name" << KeyNameFromVirtualKeyCode(virtual_key);
     
     if (ui.stackedWidget->currentWidget() == ui.remapper_page) {
         qDebug() << "CURRENTLY ON REMAPPER PAGE IM GONNA RETURN HERE because hook handling";

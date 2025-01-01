@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 
     splash->show();
 
+
     KeyScan w;
     QTimer::singleShot(2000, splash, SLOT(close()));
     QTimer::singleShot(2000, &w, SLOT(show()));
