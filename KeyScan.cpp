@@ -37,13 +37,27 @@ KeyScan::KeyScan(QWidget *parent)
     connect(ui.action_standard_typing_test, &QAction::triggered, this, &KeyScan::onMenuTypingTestClicked);
     connect(ui.action_key_remapper, &QAction::triggered, this, [this]() {
         ui.stackedWidget->setCurrentWidget(ui.remapper_page);
-        remapper->startHook();
     });
+
 
     // other button click handlers
     connect(ui.reset_keyboard_button, &QPushButton::clicked, this, [this]() {
         resetKeyboard(&ui);
-        remapper->stopHook();
+    });
+
+    connect(ui.change_remap_state_button, &QPushButton::clicked, this, [this]() {
+        // not hooked 
+        if (!(remapper->isHooked())) {
+            // will probably refactor to return bool if it succesfully hooks or not
+            remapper->startHook();
+            ui.change_remap_state_button->setText("STOP");
+            ui.is_running_label->setText("RUNNING");
+        }
+        else {
+            remapper->stopHook();
+            ui.change_remap_state_button->setText("START");
+            ui.is_running_label->setText("NOT RUNNING");
+        }
     });
 
     for (auto& [key, value] : remapper->getRemappedKeys()) { 
@@ -131,8 +145,7 @@ void KeyScan::keyPressEvent(QKeyEvent* event) {
         qDebug() << "CURRENTLY ON REMAPPER PAGE IM GONNA RETURN HERE because hook handling";
         return;
     }
-    recent_keys.add(findKeyText(virtual_key, keyboard_layout), ui.recent_key_layout);
-    //recent_keys.add()
+    recent_keys.add(KeyNameFromVirtualKeyCode(virtual_key), ui.recent_key_layout);
     // modifier keys and their right and left equivalents
     if (virtual_key == VK_SHIFT) {
         // store scancode to help identify which key was actually pressed
@@ -251,6 +264,11 @@ QString KeyScan::KeyNameFromScanCode(const unsigned scanCode)
     wchar_t buf[32]{};
     GetKeyNameTextW(scanCode << 16, buf, sizeof(buf));
     return QString::fromStdWString(buf);
+}
+
+QString KeyScan::KeyNameFromVirtualKeyCode(const unsigned virtualKeyCode)
+{
+    return KeyNameFromScanCode(MapVirtualKeyW(virtualKeyCode, MAPVK_VK_TO_VSC));
 }
 
 

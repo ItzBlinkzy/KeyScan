@@ -124,8 +124,14 @@ font-size: 40px;
         <x>10</x>
         <y>120</y>
         <width>311</width>
-        <height>491</height>
+        <height>431</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <widget class="QWidget" name="verticalLayoutWidget">
        <property name="geometry">
@@ -133,13 +139,13 @@ font-size: 40px;
          <x>0</x>
          <y>0</y>
          <width>311</width>
-         <height>491</height>
+         <height>431</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="bindings_layout"/>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="clear_bindings_button">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -147,6 +153,9 @@ font-size: 40px;
         <width>111</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="text">
        <string>Clear All Bindings</string>
@@ -480,6 +489,9 @@ border-radius: 5%;
             <width>0</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::FocusPolicy::NoFocus</enum>
           </property>
           <property name="styleSheet">
            <string notr="true">QPushButton {

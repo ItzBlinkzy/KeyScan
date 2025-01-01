@@ -20,7 +20,7 @@ public:
     void removeKeyMapping(DWORD fromKey);
 
     void clearKeyMappings();
-
+    bool isHooked();
     std::unordered_map<DWORD, DWORD> getRemappedKeys();
 
 private:

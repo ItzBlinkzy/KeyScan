@@ -24,7 +24,7 @@ void KeyRemapper::startHook() {
 }
 
 void KeyRemapper::stopHook() {
-    if (keyboardHook) {
+    if (isHooked()) {
         UnhookWindowsHookEx(keyboardHook);
         keyboardHook = nullptr;
         qDebug() << "Hook removed successfully!";
@@ -47,6 +47,11 @@ void KeyRemapper::clearKeyMappings() {
 
 std::unordered_map<DWORD, DWORD> KeyRemapper::getRemappedKeys() {
     return keyMap;
+}
+
+bool KeyRemapper::isHooked() {
+    if (keyboardHook) return true;
+    return false;
 }
 
 // hook on keyboard input to intercept and block keys to remap
