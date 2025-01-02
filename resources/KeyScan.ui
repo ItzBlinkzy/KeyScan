@@ -163,7 +163,7 @@ border: 1px solid #cbd5e1;
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>110</y>
+        <y>120</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -179,7 +179,7 @@ border: 1px solid #cbd5e1;
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>110</y>
+        <y>120</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -432,105 +432,86 @@ QPushButton {
    <widget class="QWidget" name="remapper_state_widget" native="true">
     <property name="geometry">
      <rect>
-      <x>1060</x>
-      <y>590</y>
-      <width>211</width>
-      <height>101</height>
+      <x>1080</x>
+      <y>650</y>
+      <width>191</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">#remapper_state_widget {
-background-color: #e5e5e5;
+background-color: #fca5a5;
 border: 1px solid #737373;
 padding: 2px 2px;
 border-radius: 5%;
 }</string>
     </property>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
+       <x>0</x>
+       <y>0</y>
        <width>191</width>
-       <height>83</height>
+       <height>40</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="toggle_remap_label" stretch="0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+      </property>
       <item>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="is_running_label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
-         <string notr="true">*{
-    font-size: 14px;
-    font-weight: bold;
+         <string notr="true">* {
+    font-size: 12px;
     color: black;
+	font-weight: bold;
 }</string>
         </property>
         <property name="text">
-         <string>Remapper State</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::TextFormat::PlainText</enum>
+         <string>NOT RUNNING</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignHCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
-        <property name="spacing">
-         <number>2</number>
+       <widget class="QPushButton" name="change_remap_state_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="sizeConstraint">
-         <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
         </property>
-        <item>
-         <widget class="QLabel" name="is_running_label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">* {
-    font-size: 12px;
-    color: black;
-}</string>
-          </property>
-          <property name="text">
-           <string>NOT RUNNING</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="change_remap_state_button">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::FocusPolicy::NoFocus</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
+        <property name="focusPolicy">
+         <enum>Qt::FocusPolicy::NoFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+margin: 2px;
 margin-left: 20px;
 }</string>
-          </property>
-          <property name="text">
-           <string>Start</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        </property>
+        <property name="text">
+         <string>Start</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

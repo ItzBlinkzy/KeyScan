@@ -92,6 +92,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="README.md" />
     <QtRcc Include="resources\KeyScan.qrc" />
     <QtUic Include="resources\KeyScan.ui" />
     <ClCompile Include="src\KeyRemapper.cpp" />

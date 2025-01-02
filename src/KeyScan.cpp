@@ -56,11 +56,27 @@ KeyScan::KeyScan(QWidget *parent)
             remapper->startHook();
             ui.change_remap_state_button->setText("STOP");
             ui.is_running_label->setText("RUNNING");
+
+            ui.remapper_state_widget->setStyleSheet(
+                "QWidget#remapper_state_widget {"
+                "background-color: #4ade80;"
+                "border-radius: 5%;"
+                "border: 1px solid #737373;"
+                "}"
+            );
         }
         else {
             remapper->stopHook();
             ui.change_remap_state_button->setText("START");
             ui.is_running_label->setText("NOT RUNNING");
+
+            ui.remapper_state_widget->setStyleSheet(
+                "QWidget#remapper_state_widget {"
+                "background-color: #fca5a5;"
+                "border-radius: 5%;"
+                "border: 1px solid #737373;"
+                "}"
+            );
         }
     });
 
@@ -76,7 +92,7 @@ KeyScan::KeyScan(QWidget *parent)
         QString to_key = KeyNameFromScanCode(MapVirtualKeyW(key, MAPVK_VK_TO_VSC));
         QString from_key = KeyNameFromScanCode(MapVirtualKeyW(value, MAPVK_VK_TO_VSC));
 
-        QLabel* label = new QLabel("Mapped: " + to_key + " -> " + from_key, this);
+        QLabel* label = new QLabel(to_key + " -> " + from_key, this);
         //QPushButton* remove_button = new QPushButton()
         ui.bindings_layout->addWidget(label);
     }
