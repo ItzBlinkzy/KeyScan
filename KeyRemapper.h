@@ -4,6 +4,7 @@
 
 #include <Windows.h>
 #include <QObject>
+#include <QVBoxLayout>
 
 class KeyRemapper : public QObject {
     Q_OBJECT
@@ -19,7 +20,8 @@ public:
 
     void removeKeyMapping(DWORD fromKey);
 
-    void clearKeyMappings();
+    void clearKeyMappings(QVBoxLayout* layout);
+
     bool isHooked();
     std::unordered_map<DWORD, DWORD> getRemappedKeys();
 

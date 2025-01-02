@@ -19,6 +19,9 @@ KeyScan::KeyScan(QWidget *parent)
     ui.setupUi(this);
 
     ui.reset_keyboard_button->setFocusPolicy(Qt::NoFocus);
+    ui.bindings_layout->setAlignment(Qt::AlignTop);  
+    ui.bindings_layout->setSpacing(0);            
+    ui.bindings_layout->setContentsMargins(0, 0, 0, 0);
 
     //deubgging purposes
     remapper->addKeyMapping('A', 'B');
@@ -61,11 +64,20 @@ KeyScan::KeyScan(QWidget *parent)
         }
     });
 
+    connect(ui.clear_bindings_button, &QPushButton::clicked, this, [this]() {
+        remapper->clearKeyMappings(ui.bindings_layout);
+    });
+
+    connect(ui.add_binding_button, &QPushButton::clicked, this, [this]() {
+        // todo
+    });
+
     for (auto& [key, value] : remapper->getRemappedKeys()) { 
         QString to_key = KeyNameFromScanCode(MapVirtualKeyW(key, MAPVK_VK_TO_VSC));
         QString from_key = KeyNameFromScanCode(MapVirtualKeyW(value, MAPVK_VK_TO_VSC));
 
         QLabel* label = new QLabel("Mapped: " + to_key + " -> " + from_key, this);
+        //QPushButton* remove_button = new QPushButton()
         ui.bindings_layout->addWidget(label);
     }
 
@@ -217,6 +229,18 @@ void KeyScan::resetKeyboard(Ui::KeyScanClass* ui) {
 
     for (QPushButton* button : ui->KeyboardContainer->findChildren<QPushButton*>()) {
         button->setStyleSheet("background-color: #e0f2fe;");
+    }
+}
+
+
+void KeyScan::clearLayout(QLayout* layout) {
+    if (!layout) return;
+
+    while (QLayoutItem* item = layout->takeAt(0)) {
+        if (QWidget* widget = item->widget()) {
+            widget->deleteLater();
+        }
+        delete item; 
     }
 }
 

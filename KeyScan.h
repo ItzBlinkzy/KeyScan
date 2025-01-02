@@ -12,7 +12,6 @@
 #include <Windows.h>
 #include "qlabel.h"
 
-
 class KeyScan : public QMainWindow
 {
     Q_OBJECT
@@ -25,6 +24,7 @@ public:
     void onMenuKeyTestClicked(bool checked);
     void onMenuTypingTestClicked(bool checked);
     void resetKeyboard(Ui::KeyScanClass* ui);
+    static void clearLayout(QLayout* layout);
     QString KeyNameFromScanCode(const unsigned scanCode);
     QString KeyNameFromVirtualKeyCode(const unsigned virtualKeyCode);
     ~KeyScan();
@@ -57,11 +57,8 @@ public:
     }
     
 
-    void resetRecentKeyList(QHBoxLayout* layout) {
-        while (QLayoutItem* item = layout->takeAt(0)) {
-            delete item->widget();
-            delete item;
-        }
+    void resetRecentKeyList(QHBoxLayout* recent_key_layout) {
+        KeyScan::clearLayout(recent_key_layout);
     }
 };
 

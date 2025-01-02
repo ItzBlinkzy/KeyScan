@@ -1,6 +1,7 @@
 #include "KeyRemapper.h"
 #include <QDebug>
-
+#include <QVBoxLayout>
+#include "KeyScan.h"
 HHOOK KeyRemapper::keyboardHook = nullptr;
 
 KeyRemapper::KeyRemapper(QObject* parent) : QObject(parent) {}
@@ -40,8 +41,9 @@ void KeyRemapper::removeKeyMapping(DWORD fromKey) {
     qDebug() << "Key mapping removed for key:" << fromKey;
 }
 
-void KeyRemapper::clearKeyMappings() {
+void KeyRemapper::clearKeyMappings(QVBoxLayout* bindings_layout) {
     keyMap.clear();
+    KeyScan::clearLayout(bindings_layout);
     qDebug() << "All key mappings cleared.";
 }
 

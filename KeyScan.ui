@@ -82,7 +82,7 @@ font-size: 60px;
      </widget>
     </widget>
     <widget class="QWidget" name="remapper_page">
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="remapper_title">
       <property name="geometry">
        <rect>
         <x>450</x>
@@ -100,11 +100,11 @@ font-size: 60px;
        <string>Key Remapper</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="bindings_title">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>60</y>
+        <x>90</x>
+        <y>50</y>
         <width>181</width>
         <height>61</height>
        </rect>
@@ -112,17 +112,21 @@ font-size: 60px;
       <property name="styleSheet">
        <string notr="true">* {
 font-size: 40px;
+text-align: center;
 }</string>
       </property>
       <property name="text">
        <string>Bindings</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
      </widget>
      <widget class="QWidget" name="bindings_list_container" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>120</y>
+        <x>20</x>
+        <y>160</y>
         <width>311</width>
         <height>431</height>
        </rect>
@@ -132,6 +136,16 @@ font-size: 40px;
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+padding: 5px 5px;
+border-radius: 10%; 
+background-color: #fed7aa;
+font-size: 20px;
+margin-top: 10px;
+border: 1px solid #cbd5e1;
+}</string>
       </property>
       <widget class="QWidget" name="verticalLayoutWidget">
        <property name="geometry">
@@ -148,8 +162,8 @@ font-size: 40px;
      <widget class="QPushButton" name="clear_bindings_button">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>70</y>
+        <x>220</x>
+        <y>110</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -159,6 +173,19 @@ font-size: 40px;
       </property>
       <property name="text">
        <string>Clear All Bindings</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="add_binding_button">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>110</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add New Binding</string>
       </property>
      </widget>
     </widget>
