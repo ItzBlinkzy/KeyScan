@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>KeyScan.ico</file>
+        <file>KeyScan.png</file>
+    </qresource>
+</RCC>

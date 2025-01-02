@@ -92,23 +92,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="KeyScan.qrc" />
-    <QtUic Include="KeyScan.ui" />
-    <ClCompile Include="KeyRemapper.cpp" />
-    <ClCompile Include="KeyScan.cpp" />
-    <ClCompile Include="main.cpp" />
+    <QtRcc Include="resources\KeyScan.qrc" />
+    <QtUic Include="resources\KeyScan.ui" />
+    <ClCompile Include="src\KeyRemapper.cpp" />
+    <ClCompile Include="src\KeyScan.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <None Include=".gitignore" />
-    <None Include="issues.md" />
-    <ResourceCompile Include="KeyScan.rc" />
+    <None Include="docs\issues.md" />
+    <ResourceCompile Include="resources\KeyScan.rc" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="KeyScan.h" />
-    <QtMoc Include="KeyRemapper.h" />
+    <QtMoc Include="src\KeyScan.h" />
+    <QtMoc Include="src\KeyRemapper.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="KeyScan.ico" />
-    <Image Include="KeyScan.png" />
+    <Image Include="resources\KeyScan.ico" />
+    <Image Include="resources\KeyScan.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

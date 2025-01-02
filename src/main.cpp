@@ -2,14 +2,14 @@
 #include <QtWidgets/QApplication>
 #include <QSplashScreen>
 #include "qtimer.h"
-
+#include "qdir.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     QSplashScreen* splash = new QSplashScreen;
-    splash->setPixmap(QPixmap(".\\KeyScan.png").scaled(200, 200));
+    splash->setPixmap(QPixmap(":/KeyScan.png").scaled(200, 200));
     splash->show();
 
 
