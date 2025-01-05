@@ -1,3 +1,3 @@
 # KeyScan 
 ## [WIP]
-* Developed using QT Framework and C++
+* Developed using QT and C++

@@ -1,5 +1,4 @@
 #include "KeyScan.h"
-#include "ui_KeyScan.h"
 #include <iostream>
 #include <QStringList>
 #include <QList>
@@ -7,13 +6,14 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include "KeyRemapper.h"
-
-RecentKeyList recent_keys;
-KeyRemapper* remapper;
+#include "KeyInputWidget.h"
+#include "RecentKeyList.h"
 
 KeyScan::KeyScan(QWidget *parent)
     : QMainWindow(parent)
 {
+    remapper = new KeyRemapper(this);
+    key_input_widget = new KeyInputWidget(this);
 
     this->setFixedSize(1280, 720);
     ui.setupUi(this);
@@ -30,19 +30,23 @@ KeyScan::KeyScan(QWidget *parent)
 
 
     // make default screen to be key test widget
-    ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
+    ui.stackedWidget->setCurrentWidget(ui.key_test_page);
+    // default focus
+    ui.key_test_page->setFocus();
+
 
     // menubar click handlers
     connect(ui.action_key_test, &QAction::triggered, this, [this]() {
-        ui.stackedWidget->setCurrentWidget(ui.key_test_widget);
+        ui.stackedWidget->setCurrentWidget(ui.key_test_page);
         resetKeyboard(&ui);
-        remapper->stopHook();
+        ui.key_test_page->setFocus();
     });
     connect(ui.action_standard_typing_test, &QAction::triggered, this, &KeyScan::onMenuTypingTestClicked);
+
     connect(ui.action_key_remapper, &QAction::triggered, this, [this]() {
         ui.stackedWidget->setCurrentWidget(ui.remapper_page);
+        ui.remapper_page->setFocus();
     });
-
 
     // other button click handlers
     connect(ui.reset_keyboard_button, &QPushButton::clicked, this, [this]() {
@@ -84,9 +88,27 @@ KeyScan::KeyScan(QWidget *parent)
         remapper->clearKeyMappings(ui.bindings_layout);
     });
 
-    connect(ui.add_binding_button, &QPushButton::clicked, this, [this]() {
-        // todo
+    connect(ui.from_key_button, &QPushButton::clicked, this, [this]() {
+        key_input_widget->onCaptureFromKeyButtonClicked(ui.from_key_label);
     });
+
+    connect(ui.to_key_button, &QPushButton::clicked, this, [this]() {
+        key_input_widget->onCaptureToKeyButtonClicked(ui.to_key_label);
+    });
+
+    connect(ui.create_new_binding_button, &QPushButton::clicked, this, [this]() {
+        quint32 from_key = key_input_widget->from_key_value;
+        quint32 to_key = key_input_widget->to_key_value;
+        bool remap_success = remapper->addKeyMapping(from_key, to_key);
+
+        if (remap_success) {
+            KeyScan::clearLayout(ui.bindings_layout);
+            remapper->drawCurrentBinds(ui.bindings_list_container, ui.bindings_layout);
+            key_input_widget->from_key_label->setText("From Key: ");
+            key_input_widget->to_key_label->setText("To Key: ");
+        }
+    });
+
 
     for (auto& [key, value] : remapper->getRemappedKeys()) { 
         QString to_key = KeyNameFromScanCode(MapVirtualKeyW(key, MAPVK_VK_TO_VSC));
@@ -131,9 +153,15 @@ void KeyScan::keyPressEvent(QKeyEvent* event) {
     qDebug() << "Real Key Name" << KeyNameFromVirtualKeyCode(virtual_key);
     
     if (ui.stackedWidget->currentWidget() == ui.remapper_page) {
-        qDebug() << "CURRENTLY ON REMAPPER PAGE IM GONNA RETURN HERE because hook handling";
+        key_input_widget->keyPressEvent(event);
         return;
     }
+
+    else if (ui.stackedWidget->currentWidget() == ui.standard_typing_test_page) {
+        // custom handling of this page keyevents. 
+        return;
+    }
+
     recent_keys.add(KeyNameFromVirtualKeyCode(virtual_key), ui.recent_key_layout);
     // modifier keys and their right and left equivalents
     if (virtual_key == VK_SHIFT) {
@@ -185,7 +213,12 @@ void KeyScan::keyReleaseEvent(QKeyEvent* event) {
     quint32 virtual_key = event->nativeVirtualKey();
     qDebug() << "Windows Virtual Key Code:" << virtual_key;
     if (ui.stackedWidget->currentWidget() == ui.remapper_page) {
-        qDebug() << "CURRENTLY ON REMAPPER PAGE IM GONNA RETURN HERE because hook handling ";
+        qDebug() << "keyRelease not needed for remapper page.";
+        return;
+    }
+
+    else if (ui.stackedWidget->currentWidget() == ui.standard_typing_test_page) {
+        qDebug() << "keyRelease not needed in this typing test page for now.";
         return;
     }
     // modifier keys and their right and left equivalents
@@ -232,7 +265,7 @@ void KeyScan::modifyButtonStyle(QPushButton* button, QString stylesheet) {
 }
 
 void KeyScan::onMenuTypingTestClicked(bool checked) {
-    ui.stackedWidget->setCurrentWidget(ui.standard_typing_test_widget);
+    ui.stackedWidget->setCurrentWidget(ui.standard_typing_test_page);
 }
 
 void KeyScan::resetKeyboard(Ui::KeyScanClass* ui) {
@@ -271,6 +304,7 @@ QString KeyScan::KeyNameFromVirtualKeyCode(const unsigned virtualKeyCode)
 {
     return KeyNameFromScanCode(MapVirtualKeyW(virtualKeyCode, MAPVK_VK_TO_VSC));
 }
+
 
 
 KeyScan::~KeyScan()

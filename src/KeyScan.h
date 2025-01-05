@@ -11,6 +11,15 @@
 #include "ui_KeyScan.h"
 #include <Windows.h>
 #include "qlabel.h"
+#include "RecentKeyList.h"
+#include "KeyRemapper.h"
+#include "KeyInputWidget.h"
+
+// Forward declarations
+class RecentKeyList;
+class KeyRemapper;
+class KeyInputWidget;
+
 
 class KeyScan : public QMainWindow
 {
@@ -25,42 +34,18 @@ public:
     void onMenuTypingTestClicked(bool checked);
     void resetKeyboard(Ui::KeyScanClass* ui);
     static void clearLayout(QLayout* layout);
-    QString KeyNameFromScanCode(const unsigned scanCode);
-    QString KeyNameFromVirtualKeyCode(const unsigned virtualKeyCode);
+    static QString KeyNameFromScanCode(const unsigned scanCode);
+    static QString KeyNameFromVirtualKeyCode(const unsigned virtualKeyCode);
     ~KeyScan();
 
 private:
     Ui::KeyScanClass ui;
     QMap<uint8_t, QPushButton*> buttons;
+    RecentKeyList recent_keys;
+    KeyRemapper* remapper;
+    KeyInputWidget* key_input_widget;
 };
 
-
-class RecentKeyList {
-public:
-    static constexpr size_t MAX_SIZE = 5;
-    using ValueType = QString;
-
-    void add(ValueType value, QHBoxLayout* layout) {
-        
-        while (layout->count() >= MAX_SIZE) {
-            // remove and delete the oldest widget if reached max_size
-            QLayoutItem* item = layout->takeAt(0);
-            if (item) {
-                delete item->widget(); 
-                delete item;           
-            }
-        }
-
-        // add most recent key pressed
-        QPushButton* button = new QPushButton(value);
-        layout->addWidget(button);
-    }
-    
-
-    void resetRecentKeyList(QHBoxLayout* recent_key_layout) {
-        KeyScan::clearLayout(recent_key_layout);
-    }
-};
 
 struct KeyMapping {
     QString keyText;

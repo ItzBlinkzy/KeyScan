@@ -92,9 +92,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\RecentKeyList.cpp" />
     <None Include="README.md" />
     <QtRcc Include="resources\KeyScan.qrc" />
     <QtUic Include="resources\KeyScan.ui" />
+    <ClCompile Include="src\KeyInputWidget.cpp" />
     <ClCompile Include="src\KeyRemapper.cpp" />
     <ClCompile Include="src\KeyScan.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -103,6 +105,8 @@
     <ResourceCompile Include="resources\KeyScan.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\RecentKeyList.h" />
+    <QtMoc Include="src\KeyInputWidget.h" />
     <QtMoc Include="src\KeyScan.h" />
     <QtMoc Include="src\KeyRemapper.h" />
     <ClInclude Include="resource.h" />

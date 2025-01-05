@@ -32,16 +32,16 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>10</x>
+      <y>10</y>
       <width>1331</width>
-      <height>641</height>
+      <height>631</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>1</number>
     </property>
-    <widget class="QWidget" name="standard_typing_test_widget">
+    <widget class="QWidget" name="standard_typing_test_page">
      <widget class="QWidget" name="typing_test_container" native="true">
       <property name="geometry">
        <rect>
@@ -66,17 +66,7 @@ font-size: 60px;
 }</string>
        </property>
        <property name="text">
-        <string>typing test page will be here ya feel</string>
-       </property>
-      </widget>
-      <widget class="QWidget" name="ThirdPage" native="true">
-       <property name="geometry">
-        <rect>
-         <x>1190</x>
-         <y>-30</y>
-         <width>120</width>
-         <height>80</height>
-        </rect>
+        <string>typing test page [WIP]</string>
        </property>
       </widget>
      </widget>
@@ -162,7 +152,7 @@ border: 1px solid #cbd5e1;
      <widget class="QPushButton" name="clear_bindings_button">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>20</x>
         <y>120</y>
         <width>111</width>
         <height>41</height>
@@ -175,21 +165,84 @@ border: 1px solid #cbd5e1;
        <string>Clear All Bindings</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="add_binding_button">
+     <widget class="QWidget" name="remapper_widget" native="true">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>390</x>
         <y>120</y>
-        <width>111</width>
-        <height>41</height>
+        <width>521</width>
+        <height>431</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Add New Binding</string>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::StrongFocus</enum>
       </property>
+      <widget class="QWidget" name="verticalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>521</width>
+         <height>431</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="from_key_button">
+            <property name="text">
+             <string>Press to add bind</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="from_key_label">
+            <property name="text">
+             <string>From key</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="to_key_button">
+            <property name="text">
+             <string>Press to add bind</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="to_key_label">
+            <property name="text">
+             <string>to key</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QPushButton" name="create_new_binding_button">
+              <property name="text">
+               <string>Add bindings</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="key_test_widget">
+    <widget class="QWidget" name="key_test_page">
      <widget class="QLabel" name="recent_key_text">
       <property name="geometry">
        <rect>
@@ -432,7 +485,7 @@ QPushButton {
    <widget class="QWidget" name="remapper_state_widget" native="true">
     <property name="geometry">
      <rect>
-      <x>1080</x>
+      <x>1070</x>
       <y>650</y>
       <width>191</width>
       <height>41</height>
@@ -446,7 +499,7 @@ padding: 2px 2px;
 border-radius: 5%;
 }</string>
     </property>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
