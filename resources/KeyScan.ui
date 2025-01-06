@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>719</height>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -35,7 +35,7 @@
       <x>10</x>
       <y>10</y>
       <width>1331</width>
-      <height>631</height>
+      <height>601</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -55,9 +55,9 @@
        <property name="geometry">
         <rect>
          <x>60</x>
-         <y>30</y>
+         <y>-40</y>
          <width>1181</width>
-         <height>481</height>
+         <height>551</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -71,196 +71,257 @@ font-size: 60px;
       </widget>
      </widget>
     </widget>
-	   <widget class="QWidget" name="remapper_page">
-		   <widget class="QLabel" name="remapper_title">
-			   <property name="geometry">
-				   <rect>
-					   <x>450</x>
-					   <y>0</y>
-					   <width>401</width>
-					   <height>81</height>
-				   </rect>
-			   </property>
-			   <property name="styleSheet">
-				   <string notr="true">
+    <widget class="QWidget" name="remapper_page">
+     <widget class="QLabel" name="remapper_title">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>-20</y>
+        <width>401</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
 					   QLabel {
 					   font-size: 60px;
 					   color: #FF6D00;
 					   font-weight: bold;
 					   }
 				   </string>
-			   </property>
-			   <property name="text">
-				   <string>Key Remapper</string>
-			   </property>
-		   </widget>
-
-		   <widget class="QLabel" name="bindings_title">
-			   <property name="geometry">
-				   <rect>
-					   <x>90</x>
-					   <y>50</y>
-					   <width>181</width>
-					   <height>61</height>
-				   </rect>
-			   </property>
-			   <property name="styleSheet">
-				   <string notr="true">
+      </property>
+      <property name="text">
+       <string>Key Remapper</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="bindings_title">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>0</y>
+        <width>181</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
 					   QLabel {
 					   font-size: 40px;
 					   text-align: center;
 					   color: #FF8F00;
 					   }
 				   </string>
-			   </property>
-			   <property name="text">
-				   <string>Bindings</string>
-			   </property>
-		   </widget>
-
-		   <widget class="QWidget" name="bindings_list_container" native="true">
-			   <property name="geometry">
-				   <rect>
-					   <x>20</x>
-					   <y>160</y>
-					   <width>311</width>
-					   <height>431</height>
-				   </rect>
-			   </property>
-			   <property name="styleSheet">
-				   <string notr="true">
+      </property>
+      <property name="text">
+       <string>Bindings</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="bindings_list_container" native="true">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>130</y>
+        <width>311</width>
+        <height>431</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
 					   QWidget {
 					   background-color: #FFF3E0;
 					   border-radius: 10px;
 					   border: 1px solid #FFCC80;
 					   }
 				   </string>
-			   </property>
-			   <widget class="QWidget" name="verticalLayoutWidget">
-				   <property name="geometry">
-					   <rect>
-						   <x>0</x>
-						   <y>0</y>
-						   <width>311</width>
-						   <height>431</height>
-					   </rect>
-				   </property>
-				   <layout class="QVBoxLayout" name="bindings_layout"/>
-			   </widget>
-		   </widget>
-
-		   <widget class="QPushButton" name="clear_bindings_button">
-			   <property name="geometry">
-				   <rect>
-					   <x>20</x>
-					   <y>120</y>
-					   <width>111</width>
-					   <height>41</height>
-				   </rect>
-			   </property>
-			   <property name="styleSheet">
-				   <string notr="true">
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>311</width>
+         <height>431</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="bindings_layout"/>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="clear_bindings_button">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>80</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
 					   QPushButton {
 					   background-color: #FF7043;
-					   border-radius: 8px;
+					   border-radius: 4px;
 					   color: white;
 					   font-size: 18px;
 					   padding: 5px;
 					   }
 				   </string>
-			   </property>
-			   <property name="text">
-				   <string>Clear All Bindings</string>
-			   </property>
-		   </widget>
-
-		   <widget class="QWidget" name="remapper_widget" native="true">
-			   <property name="geometry">
-				   <rect>
-					   <x>390</x>
-					   <y>120</y>
-					   <width>521</width>
-					   <height>431</height>
-				   </rect>
-			   </property>
-			   <property name="styleSheet">
-				   <string notr="true">
-					   QWidget {
+      </property>
+      <property name="text">
+       <string>Clear All Bindings</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="remapper_widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>80</y>
+        <width>241</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#remapper_widget {
 					   background-color: #FFF3E0;
 					   border-radius: 10px;
 					   border: 1px solid #FFCC80;
-					   }
+}
 				   </string>
-			   </property>
-			   <widget class="QWidget" name="verticalLayoutWidget_2">
-				   <property name="geometry">
-					   <rect>
-						   <x>0</x>
-						   <y>0</y>
-						   <width>521</width>
-						   <height>431</height>
-					   </rect>
-				   </property>
-				   <layout class="QVBoxLayout" name="verticalLayout">
-					   <item>
-						   <layout class="QHBoxLayout" name="horizontalLayout_2">
-							   <item>
-								   <widget class="QPushButton" name="from_key_button">
-									   <property name="text">
-										   <string>Press to add bind</string>
-									   </property>
-								   </widget>
-							   </item>
-							   <item>
-								   <widget class="QLabel" name="from_key_label">
-									   <property name="text">
-										   <string>From key</string>
-									   </property>
-								   </widget>
-							   </item>
-						   </layout>
-					   </item>
-					   <item>
-						   <layout class="QHBoxLayout" name="horizontalLayout">
-							   <item>
-								   <widget class="QPushButton" name="to_key_button">
-									   <property name="text">
-										   <string>Press to add bind</string>
-									   </property>
-								   </widget>
-							   </item>
-							   <item>
-								   <widget class="QLabel" name="to_key_label">
-									   <property name="text">
-										   <string>To key</string>
-									   </property>
-								   </widget>
-							   </item>
-						   </layout>
-					   </item>
-					   <item>
-						   <widget class="QPushButton" name="create_new_binding_button">
-							   <property name="text">
-								   <string>Add Bindings</string>
-							   </property>
-							   <property name="styleSheet">
-								   <string notr="true">
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>231</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="0">
+        <item>
+         <layout class="QHBoxLayout" name="from_key_layout">
+          <item>
+           <widget class="QPushButton" name="from_key_button">
+            <property name="styleSheet">
+             <string notr="true">* {
+					   background-color: #d4d4d8;
+					   border-radius: 4px;
+border: 1px solid #3f3f46;
+					   color: #27272a;
+padding: 2px;
+margin: 4px;
+font-weight: bold;
+					   font-size: 14px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Select Key to Remap</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="from_key_label">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    background-color: #d4d4d8;
+    border: 2px solid #3f3f46;
+    border-bottom-width: 3px; 
+    border-radius: 6px;       
+    font: bold 12px &quot;Arial&quot;;   /* Bold font for clarity */
+    max-width: 40px;           /* Wider key width */
+    max-height: 40px;          /* Taller key height */
+    text-align: center;        /* Center text for button */
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="create_new_binding_button">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>190</y>
+        <width>221</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
 									   QPushButton {
 									   background-color: #FF7043;
-									   border-radius: 8px;
+									   border-radius: 4px;
 									   color: white;
 									   font-size: 18px;
 									   padding: 5px;
 									   }
 								   </string>
-							   </property>
-						   </widget>
-					   </item>
-				   </layout>
-			   </widget>
-		   </widget>
-	   </widget>
-	   <widget class="QWidget" name="key_test_page">
+      </property>
+      <property name="text">
+       <string>Add Bindings</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>130</y>
+        <width>231</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0">
+       <item>
+        <layout class="QHBoxLayout" name="to_key_layout" stretch="0,1">
+         <item>
+          <widget class="QPushButton" name="to_key_button">
+           <property name="styleSheet">
+            <string notr="true">* {
+					   background-color: #d4d4d8;
+					   border-radius: 4px;
+border: 1px solid #3f3f46;
+					   color: #27272a;
+padding: 2px;
+margin: 4px;
+font-weight: bold;
+					   font-size: 14px;
+}</string>
+           </property>
+           <property name="text">
+            <string>New Key Assignment</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="to_key_label">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+    background-color: #d4d4d8;
+    border: 2px solid #3f3f46;
+    border-bottom-width: 3px; 
+    border-radius: 6px;       
+    font: bold 12px &quot;Arial&quot;;   /* Bold font for clarity */
+    max-width: 40px;           /* Wider key width */
+    max-height: 40px;          /* Taller key height */
+    text-align: center;        /* Center text for button */
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="key_test_page">
      <widget class="QLabel" name="recent_key_text">
       <property name="geometry">
        <rect>
@@ -504,7 +565,7 @@ QPushButton {
     <property name="geometry">
      <rect>
       <x>1070</x>
-      <y>650</y>
+      <y>630</y>
       <width>191</width>
       <height>41</height>
      </rect>

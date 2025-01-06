@@ -13,7 +13,7 @@ KeyScan::KeyScan(QWidget *parent)
     : QMainWindow(parent)
 {
     remapper = new KeyRemapper(this);
-    key_input_widget = new KeyInputWidget(this);
+    key_input_widget = new KeyInputWidget(&ui, this);
 
     this->setFixedSize(1280, 720);
     ui.setupUi(this);
@@ -84,11 +84,11 @@ KeyScan::KeyScan(QWidget *parent)
     });
 
     connect(ui.from_key_button, &QPushButton::clicked, this, [this]() {
-        key_input_widget->onCaptureFromKeyButtonClicked(ui.from_key_label);
+        key_input_widget->onCaptureFromKeyButtonClicked();
     });
 
     connect(ui.to_key_button, &QPushButton::clicked, this, [this]() {
-        key_input_widget->onCaptureToKeyButtonClicked(ui.to_key_label);
+        key_input_widget->onCaptureToKeyButtonClicked();
     });
 
     connect(ui.create_new_binding_button, &QPushButton::clicked, this, [this]() {
@@ -99,8 +99,8 @@ KeyScan::KeyScan(QWidget *parent)
         if (remap_success) {
             KeyScan::clearLayout(ui.bindings_layout);
             remapper->drawCurrentBinds(ui.bindings_list_container, ui.bindings_layout);
-            key_input_widget->from_key_label->setText("From Key: ");
-            key_input_widget->to_key_label->setText("To Key: ");
+            ui.from_key_label->setText("");
+            ui.to_key_label->setText("");
 
             key_input_widget->from_key_value = -1;
             key_input_widget->to_key_value = -1;
