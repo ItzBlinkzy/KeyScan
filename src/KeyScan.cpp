@@ -23,11 +23,6 @@ KeyScan::KeyScan(QWidget *parent)
     ui.bindings_layout->setSpacing(0);            
     ui.bindings_layout->setContentsMargins(0, 0, 0, 0);
 
-    //deubgging purposes
-    remapper->addKeyMapping('A', 'B');
-    remapper->addKeyMapping(VK_F1, VK_F10);
-    remapper->addKeyMapping(VK_SPACE, VK_RETURN);
-
 
     // make default screen to be key test widget
     ui.stackedWidget->setCurrentWidget(ui.key_test_page);
@@ -99,25 +94,28 @@ KeyScan::KeyScan(QWidget *parent)
     connect(ui.create_new_binding_button, &QPushButton::clicked, this, [this]() {
         quint32 from_key = key_input_widget->from_key_value;
         quint32 to_key = key_input_widget->to_key_value;
-        bool remap_success = remapper->addKeyMapping(from_key, to_key);
+        bool remap_success = remapper->addKeyMapping(from_key, to_key, key_input_widget);
 
         if (remap_success) {
             KeyScan::clearLayout(ui.bindings_layout);
             remapper->drawCurrentBinds(ui.bindings_list_container, ui.bindings_layout);
             key_input_widget->from_key_label->setText("From Key: ");
             key_input_widget->to_key_label->setText("To Key: ");
+
+            key_input_widget->from_key_value = -1;
+            key_input_widget->to_key_value = -1;
         }
     });
 
+    // preload the bindings if there are any before (may possibly implement)
+    //for (auto& [key, value] : remapper->getRemappedKeys()) { 
+    //    QString to_key = KeyNameFromScanCode(MapVirtualKeyW(key, MAPVK_VK_TO_VSC));
+    //    QString from_key = KeyNameFromScanCode(MapVirtualKeyW(value, MAPVK_VK_TO_VSC));
 
-    for (auto& [key, value] : remapper->getRemappedKeys()) { 
-        QString to_key = KeyNameFromScanCode(MapVirtualKeyW(key, MAPVK_VK_TO_VSC));
-        QString from_key = KeyNameFromScanCode(MapVirtualKeyW(value, MAPVK_VK_TO_VSC));
-
-        QLabel* label = new QLabel(to_key + " -> " + from_key, this);
-        //QPushButton* remove_button = new QPushButton()
-        ui.bindings_layout->addWidget(label);
-    }
+    //    QLabel* label = new QLabel(to_key + " -> " + from_key, this);
+    //    //QPushButton* remove_button = new QPushButton()
+    //    ui.bindings_layout->addWidget(label);
+    //}
 
     QList<QHBoxLayout*> layouts = {
          ui.f1_layout,

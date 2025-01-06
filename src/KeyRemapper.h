@@ -6,6 +6,9 @@
 #include <QKeyEvent>
 #include <QObject>
 #include <QVBoxLayout>
+
+class KeyInputWidget;
+
 class KeyRemapper : public QObject {
     Q_OBJECT
 
@@ -15,8 +18,8 @@ public:
 
     void startHook();
     void stopHook();
+    bool addKeyMapping(quint32 from_key, quint32 to_key, KeyInputWidget* kiw_instance);
     void drawCurrentBinds(QWidget* widget, QLayout* layout);
-    bool addKeyMapping(quint32 from_key, quint32 to_key);
 
     void removeKeyMapping(quint32 from_key);
 

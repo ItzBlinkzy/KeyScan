@@ -12,7 +12,7 @@ std::unordered_map<quint32, quint32> KeyRemapper::key_map;
 
 KeyRemapper::~KeyRemapper() {
     stopHook();
-}   
+}
 
 void KeyRemapper::startHook() {
     if (!keyboard_hook) {
@@ -33,7 +33,7 @@ void KeyRemapper::stopHook() {
         qDebug() << "Hook removed successfully!";
     }
 }
-bool KeyRemapper::addKeyMapping(quint32 from_key, quint32 to_key) {
+bool KeyRemapper::addKeyMapping(quint32 from_key, quint32 to_key, KeyInputWidget* kiw_instance) {
     if (from_key == to_key) {
         qDebug() << "cannot remap to same key";
         return false;
@@ -44,6 +44,9 @@ bool KeyRemapper::addKeyMapping(quint32 from_key, quint32 to_key) {
         qDebug() << "key already exists cannot use again.";
         return false;
     }
+
+    // either keys were reset or no new keys were added.
+    if (kiw_instance->from_key_value == -1 || kiw_instance->to_key_value == -1) return false;
 
     key_map[from_key] = to_key;
     qDebug() << "Key mapping added: " << from_key << "to " << to_key;
@@ -99,8 +102,8 @@ bool KeyRemapper::remapKey(quint32 vkCode) {
 
 void KeyRemapper::drawCurrentBinds(QWidget* widget, QLayout* layout) {
     for (auto& [key, value] : getRemappedKeys()) {
-        QString to_key = KeyScan::KeyNameFromScanCode(MapVirtualKeyW(key, MAPVK_VK_TO_VSC));
-        QString from_key = KeyScan::KeyNameFromScanCode(MapVirtualKeyW(value, MAPVK_VK_TO_VSC));
+        QString to_key = KeyScan::KeyNameFromVirtualKeyCode(key);
+        QString from_key = KeyScan::KeyNameFromVirtualKeyCode(value);
 
         QLabel* label = new QLabel(to_key + " -> " + from_key, widget);
         //QPushButton* remove_button = new QPushButton()
