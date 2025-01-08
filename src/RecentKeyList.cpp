@@ -12,6 +12,7 @@ void RecentKeyList::add(ValueType value, QHBoxLayout* layout) {
     }
     // add most recent key pressed
     QPushButton* button = new QPushButton(value);
+    //button->setFocusPolicy(Qt::NoFocus);
     layout->addWidget(button);
 }
 

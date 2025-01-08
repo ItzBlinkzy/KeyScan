@@ -36,6 +36,7 @@ public:
     static void clearLayout(QLayout* layout);
     static QString KeyNameFromScanCode(const unsigned scanCode);
     static QString KeyNameFromVirtualKeyCode(const unsigned virtualKeyCode);
+    quint32 handleModifierKeys(QKeyEvent* event, quint32 virtual_key);
     ~KeyScan();
 
 private:

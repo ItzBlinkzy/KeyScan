@@ -27,7 +27,7 @@ KeyScan::KeyScan(QWidget *parent)
     // make default screen to be key test widget
     ui.stackedWidget->setCurrentWidget(ui.key_test_page);
     // default focus
-    ui.key_test_page->setFocus();
+    ui.stackedWidget->setFocus();
 
 
     // menubar click handlers
@@ -84,10 +84,12 @@ KeyScan::KeyScan(QWidget *parent)
     });
 
     connect(ui.from_key_button, &QPushButton::clicked, this, [this]() {
+        this->setFocus();
         key_input_widget->onCaptureFromKeyButtonClicked();
     });
 
     connect(ui.to_key_button, &QPushButton::clicked, this, [this]() {
+        this->setFocus();
         key_input_widget->onCaptureToKeyButtonClicked();
     });
 
@@ -109,8 +111,8 @@ KeyScan::KeyScan(QWidget *parent)
 
     // preload the bindings if there are any before (may possibly implement)
     //for (auto& [key, value] : remapper->getRemappedKeys()) { 
-    //    QString to_key = KeyNameFromScanCode(MapVirtualKeyW(key, MAPVK_VK_TO_VSC));
-    //    QString from_key = KeyNameFromScanCode(MapVirtualKeyW(value, MAPVK_VK_TO_VSC));
+    //    QString to_key = KeyNameFromVirtualKey(key);
+    //    QString from_key = KeyNameFromVirtualKey(value);
 
     //    QLabel* label = new QLabel(to_key + " -> " + from_key, this);
     //    //QPushButton* remove_button = new QPushButton()
@@ -161,52 +163,19 @@ void KeyScan::keyPressEvent(QKeyEvent* event) {
     }
 
     recent_keys.add(KeyNameFromVirtualKeyCode(virtual_key), ui.recent_key_layout);
+
     // modifier keys and their right and left equivalents
-    if (virtual_key == VK_SHIFT) {
-        // store scancode to help identify which key was actually pressed
-        quint32 scan_code = event->nativeScanCode();
-        if ((GetKeyState(VK_LSHIFT) & 0x8000) && scan_code == 0x2A) {
-            virtual_key = VK_LSHIFT;
-        }
-        else if ((GetKeyState(VK_RSHIFT) & 0x8000) && scan_code == 0x36) {
-            virtual_key = VK_RSHIFT;
-        }
-    }
-    else if (virtual_key == VK_CONTROL) {
-        quint32 scanCode = event->nativeScanCode();
-        if ((GetKeyState(VK_LCONTROL) & 0x8000) && scanCode == 0x1D) {
-            virtual_key = VK_LCONTROL;
-        }
-        else if ((GetKeyState(VK_RCONTROL) & 0x8000) && scanCode == 0x11D) {
-            virtual_key = VK_RCONTROL;
-        }
-    }
-    // alt keys
-    else if (virtual_key == VK_MENU) {  
-        quint32 scanCode = event->nativeScanCode();
-        if ((GetKeyState(VK_LMENU) & 0x8000) && scanCode == 0x38) {
-            virtual_key = VK_LMENU;
-        }
-        else if ((GetKeyState(VK_RMENU) & 0x8000) && scanCode == 0x138) {
-            virtual_key = VK_RMENU;
-        }
-    }
+    virtual_key = handleModifierKeys(event, virtual_key);
 
     if (buttons.contains(virtual_key)) {
         QPushButton* button = buttons[virtual_key];
-        modifyButtonStyle(button, "background-color: #ffcc2c;");
+        modifyButtonStyle(button, "background-color: #ea580c;");
     }
 }
 
 
-/* later refactoring will look something like this
-* if (page1) handlepage1(virtual_key, event)
-* elif (page2) handlepage2(virtual_key, event)
-* else handlepage3(virtual_key, event)
-* 
-*/
-void KeyScan::keyReleaseEvent(QKeyEvent* event) {
 
+void KeyScan::keyReleaseEvent(QKeyEvent* event) {
 
     quint32 virtual_key = event->nativeVirtualKey();
     qDebug() << "Windows Virtual Key Code:" << virtual_key;
@@ -220,40 +189,12 @@ void KeyScan::keyReleaseEvent(QKeyEvent* event) {
         return;
     }
     // modifier keys and their right and left equivalents
-
-    if (virtual_key == VK_SHIFT) {
-        quint32 scanCode = event->nativeScanCode();
-        if (scanCode == 0x2A) {  
-            virtual_key = VK_LSHIFT;
-        }
-        else if (scanCode == 0x36) {  
-            virtual_key = VK_RSHIFT;
-        }
-    }
-    else if (virtual_key == VK_CONTROL) {
-        quint32 scanCode = event->nativeScanCode();
-        if (scanCode == 0x1D) { 
-            virtual_key = VK_LCONTROL;
-        }
-        else if (scanCode == 0x11D) {  
-            virtual_key = VK_RCONTROL;
-        }
-    }
-
-    // alt keys
-    else if (virtual_key == VK_MENU) {
-        quint32 scanCode = event->nativeScanCode();
-        if (scanCode == 0x38) { 
-            virtual_key = VK_LMENU;
-        }
-        else if (scanCode == 0x138) {  
-            virtual_key = VK_RMENU;
-        }
-    }
+    virtual_key = handleModifierKeys(event, virtual_key);
 
     if (buttons.contains(virtual_key)) {
         QPushButton* button = buttons[virtual_key];
-        modifyButtonStyle(button, "background-color: #00635f;color: white;");
+        //f19e0e
+        modifyButtonStyle(button, "background-color: #fdba74;");
 
     }
 }
@@ -275,7 +216,7 @@ void KeyScan::resetKeyboard(Ui::KeyScanClass* ui) {
     qDebug() << keyboard_container->styleSheet();
 
     for (QPushButton* button : ui->KeyboardContainer->findChildren<QPushButton*>()) {
-        button->setStyleSheet("background-color: #e0f2fe;");
+        button->setStyleSheet("background-color: #feece0;");
     }
 }
 
@@ -302,6 +243,25 @@ QString KeyScan::KeyNameFromVirtualKeyCode(const unsigned virtualKeyCode)
 {
     return KeyNameFromScanCode(MapVirtualKeyW(virtualKeyCode, MAPVK_VK_TO_VSC));
 }
+
+quint32 KeyScan::handleModifierKeys(QKeyEvent* event, quint32 virtual_key) {
+    const quint32 scanCode = event->nativeScanCode();
+
+    switch (virtual_key) {
+        case VK_SHIFT:
+            return (scanCode == 0x2A) ? VK_LSHIFT : (scanCode == 0x36 ? VK_RSHIFT : virtual_key);
+
+        case VK_CONTROL:
+            return (scanCode == 0x1D) ? VK_LCONTROL : (scanCode == 0x11D ? VK_RCONTROL : virtual_key);
+
+        case VK_MENU:
+            return (scanCode == 0x38) ? VK_LMENU : (scanCode == 0x138 ? VK_RMENU : virtual_key);
+
+        default:
+            return virtual_key;  
+    }
+}
+
 
 
 

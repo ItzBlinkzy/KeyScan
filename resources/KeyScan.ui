@@ -29,17 +29,20 @@
    <property name="layoutDirection">
     <enum>Qt::LayoutDirection::LeftToRight</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>1331</width>
-      <height>601</height>
+      <x>-10</x>
+      <y>0</y>
+      <width>1351</width>
+      <height>701</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="standard_typing_test_page">
      <widget class="QWidget" name="typing_test_container" native="true">
@@ -72,10 +75,15 @@ font-size: 60px;
      </widget>
     </widget>
     <widget class="QWidget" name="remapper_page">
+     <property name="styleSheet">
+      <string notr="true">#remapper_page {
+background-color: #e4e4e7;
+}</string>
+     </property>
      <widget class="QLabel" name="remapper_title">
       <property name="geometry">
        <rect>
-        <x>440</x>
+        <x>460</x>
         <y>-20</y>
         <width>401</width>
         <height>91</height>
@@ -92,28 +100,6 @@ font-size: 60px;
       </property>
       <property name="text">
        <string>Key Remapper</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="bindings_title">
-      <property name="geometry">
-       <rect>
-        <x>90</x>
-        <y>0</y>
-        <width>181</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">
-					   QLabel {
-					   font-size: 40px;
-					   text-align: center;
-					   color: #FF8F00;
-					   }
-				   </string>
-      </property>
-      <property name="text">
-       <string>Bindings</string>
       </property>
      </widget>
      <widget class="QWidget" name="bindings_list_container" native="true">
@@ -155,6 +141,9 @@ font-size: 60px;
         <height>41</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true">
 					   QPushButton {
@@ -173,8 +162,8 @@ font-size: 60px;
      <widget class="QWidget" name="remapper_widget" native="true">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>80</y>
+        <x>530</x>
+        <y>200</y>
         <width>241</width>
         <height>101</height>
        </rect>
@@ -245,11 +234,14 @@ font-weight: bold;
      <widget class="QPushButton" name="create_new_binding_button">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>190</y>
-        <width>221</width>
+        <x>530</x>
+        <y>310</y>
+        <width>241</width>
         <height>36</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">
@@ -269,8 +261,8 @@ font-weight: bold;
      <widget class="QWidget" name="verticalLayoutWidget_3">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>130</y>
+        <x>530</x>
+        <y>250</y>
         <width>231</width>
         <height>51</height>
        </rect>
@@ -320,30 +312,37 @@ font-weight: bold;
        </item>
       </layout>
      </widget>
-    </widget>
-    <widget class="QWidget" name="key_test_page">
-     <widget class="QLabel" name="recent_key_text">
+     <widget class="QLabel" name="remapper_title_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>100</x>
         <y>10</y>
-        <width>281</width>
-        <height>41</height>
+        <width>221</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">#recent_key_text {
-font-size: 30px;
-}</string>
+       <string notr="true">
+					   QLabel {
+					   font-size: 40px;
+					   color: #FF6D00;
+					   font-weight: bold;
+					   }
+				   </string>
       </property>
       <property name="text">
-       <string>Recent Keys Pressed</string>
+       <string>Bindings</string>
       </property>
      </widget>
+    </widget>
+    <widget class="QWidget" name="key_test_page">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <widget class="QWidget" name="KeyboardContainer" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>150</y>
         <width>1151</width>
         <height>321</height>
@@ -351,11 +350,11 @@ font-size: 30px;
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
-	background-color: #e0f2fe;
-    border: 1px solid #38bdf8; 
+	background-color: #FEECE0;
+    border: 1px solid #b45309; 
     border-radius: 6px;        
     border-bottom-width: 2px; 
-    border-bottom-color: #0284c7; 
+    border-bottom-color: #b45309; 
 	padding: 9px 9px;
     font: bold 12px &quot;Arial&quot;;    
     min-width: 20px;           
@@ -504,7 +503,7 @@ font-size: 30px;
      <widget class="QWidget" name="RecentKeyContainer" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>60</y>
         <width>411</width>
         <height>80</height>
@@ -512,16 +511,16 @@ font-size: 30px;
       </property>
       <property name="styleSheet">
        <string notr="true">#RecentKeyContainer {
-background-color: #e2e8f0;
+background-color: #e7e5e4;
 border-radius: 8px;
 }
 
 QPushButton {
-    background-color: #d4d4d8;
-    border: 2px solid #3f3f46;
-    border-bottom-width: 3px; 
+    background-color: #FEECE0;
+    border: 2px solid #b45309;
+    border-bottom-width: 3px;
     border-radius: 6px;       
-    font: bold 12px &quot;Arial&quot;;   /* Bold font for clarity */
+    font: bold 12px 'Arial'; /* Bold font for clarity */
     max-width: 40px;           /* Wider key width */
     max-height: 40px;          /* Taller key height */
     text-align: center;        /* Center text for button */
@@ -546,17 +545,51 @@ QPushButton {
      <widget class="QPushButton" name="reset_keyboard_button">
       <property name="geometry">
        <rect>
-        <x>430</x>
+        <x>450</x>
         <y>100</y>
-        <width>121</width>
+        <width>151</width>
         <height>41</height>
        </rect>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="styleSheet">
+       <string notr="true">
+									   QPushButton {
+									   background-color: #FF7043;
+									   border-radius: 4px;
+									   color: white;
+									   font-size: 18px;
+									   padding: 5px;
+font-weight: bold;
+									   }
+								   </string>
+      </property>
       <property name="text">
        <string>Reset Keyboard</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="recent_key_text">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>-10</y>
+        <width>391</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+					   QLabel {
+					   font-size: 40px;
+					   color: #FF6D00;
+					   font-weight: bold;
+					   }
+				   </string>
+      </property>
+      <property name="text">
+       <string>Recent Keys Pressed</string>
       </property>
      </widget>
     </widget>
