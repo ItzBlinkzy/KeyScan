@@ -1,6 +1,11 @@
+
+
 # KeyScan
 
+<img src="https://github.com/user-attachments/assets/1fbc5331-07b0-401e-840d-4b8264993727" alt="logo" width="125"/>
+
 KeyScan is a simple desktop application for Windows designed for keyboard testing, typing practice, and key remapping.
+
 
 ## Features
 
