@@ -16,9 +16,9 @@ KeyScan is a simple desktop application for Windows designed for keyboard testin
 * Key Remapper: Easily remap any keyboard key to another key of your choice.
 
 ## Demo
-_will update as more features are implemented or improved._
+_Demo will be updated as more features are implemented or improved._
 
-VIDEO link will be here!
+https://github.com/user-attachments/assets/2daa6481-a006-426d-989b-c17857d22737
 
 ## Installation
 **Option 1: Using Pre-built Binaries**
