@@ -23,7 +23,7 @@ VIDEO link will be here!
 ## Installation
 **Option 1: Using Pre-built Binaries**
 
-1. Download the latest version from the [releases](https://github.com/ItzBlinkzy/releases) page.
+1. Download the latest version from the [releases](https://github.com/ItzBlinkzy/KeyScan/releases) page.
 2. Extract the zip file
 3. Run KeyScan.exe
 
