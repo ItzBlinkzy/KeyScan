@@ -3,7 +3,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QWidget>
-#include <ui_KeyScan.h>
+#include "ui_KeyScan.h"
 
 class KeyInputWidget : public QWidget {
     Q_OBJECT
