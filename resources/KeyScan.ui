@@ -84,9 +84,9 @@ background-color: #e4e4e7;
       <property name="geometry">
        <rect>
         <x>460</x>
-        <y>-20</y>
+        <y>10</y>
         <width>401</width>
-        <height>91</height>
+        <height>61</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -574,15 +574,15 @@ font-weight: bold;
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>-10</y>
-        <width>391</width>
-        <height>61</height>
+        <y>10</y>
+        <width>381</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">
 					   QLabel {
-					   font-size: 40px;
+					   font-size: 30px;
 					   color: #FF6D00;
 					   font-weight: bold;
 					   }
