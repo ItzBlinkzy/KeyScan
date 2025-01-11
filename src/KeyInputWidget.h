@@ -9,7 +9,7 @@ class KeyInputWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit KeyInputWidget(Ui::KeyScanClass* ui, QWidget* parent = nullptr);
+    KeyInputWidget(QLabel* from_key_label, QLabel* to_key_label, QPushButton* from_button, QPushButton* to_button, QWidget* parent);
     ~KeyInputWidget();
 
     enum CaptureMode { None, FromKey, ToKey };
@@ -24,6 +24,10 @@ public:
     void keyPressEvent(QKeyEvent* event);
 
 private:
-    CaptureMode current_mode; 
-    Ui::KeyScanClass* ui;
+    CaptureMode current_mode;
+    QLabel* m_from_key_label;
+    QLabel* m_to_key_label;
+    QPushButton* m_from_button;
+    QPushButton* m_to_button;
 };
+

@@ -12,15 +12,15 @@
 KeyScan::KeyScan(QWidget *parent)
     : QMainWindow(parent)
 {
-    remapper = new KeyRemapper(this);
-    key_input_widget = new KeyInputWidget(&ui, this);
-
     this->setFixedSize(1280, 720);
+    remapper = new KeyRemapper(this);
     ui.setupUi(this);
+    key_input_widget = new KeyInputWidget(ui.from_key_label, ui.to_key_label, ui.from_key_button, ui.to_key_button, this);
+    key_input_widget->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     ui.reset_keyboard_button->setFocusPolicy(Qt::NoFocus);
-    ui.bindings_layout->setAlignment(Qt::AlignTop);  
-    ui.bindings_layout->setSpacing(0);            
+    ui.bindings_layout->setAlignment(Qt::AlignTop);
+    ui.bindings_layout->setSpacing(0);
     ui.bindings_layout->setContentsMargins(0, 0, 0, 0);
 
 
@@ -49,7 +49,7 @@ KeyScan::KeyScan(QWidget *parent)
     });
 
     connect(ui.change_remap_state_button, &QPushButton::clicked, this, [this]() {
-        // not hooked 
+        // not hooked
         if (!(remapper->isHooked())) {
             // will probably refactor to return bool if it succesfully hooks or not
             remapper->startHook();
@@ -110,7 +110,7 @@ KeyScan::KeyScan(QWidget *parent)
     });
 
     // preload the bindings if there are any before (may possibly implement)
-    //for (auto& [key, value] : remapper->getRemappedKeys()) { 
+    //for (auto& [key, value] : remapper->getRemappedKeys()) {
     //    QString to_key = KeyNameFromVirtualKey(key);
     //    QString from_key = KeyNameFromVirtualKey(value);
 
@@ -135,8 +135,8 @@ KeyScan::KeyScan(QWidget *parent)
 
     for (size_t i = 0; i < layouts.size(); i++) {
         for (const KeyMapping& key : keyboard_layout[i]) {
-            QPushButton* button = new QPushButton(key.keyText); 
-            layouts[i]->addWidget(button);  
+            QPushButton* button = new QPushButton(key.keyText);
+            layouts[i]->addWidget(button);
             button->setFocusPolicy(Qt::NoFocus);
             buttons[key.virtualKey] = button;
         }
@@ -151,14 +151,14 @@ void KeyScan::keyPressEvent(QKeyEvent* event) {
     quint32 scan_code = event->nativeScanCode();
     qDebug() << "Windows Virtual Key Code:" << virtual_key;
     qDebug() << "Real Key Name" << KeyNameFromVirtualKeyCode(virtual_key);
-    
+
     if (ui.stackedWidget->currentWidget() == ui.remapper_page) {
         key_input_widget->keyPressEvent(event);
         return;
     }
 
     else if (ui.stackedWidget->currentWidget() == ui.standard_typing_test_page) {
-        // custom handling of this page keyevents. 
+        // custom handling of this page keyevents.
         return;
     }
 
@@ -228,7 +228,7 @@ void KeyScan::clearLayout(QLayout* layout) {
         if (QWidget* widget = item->widget()) {
             widget->deleteLater();
         }
-        delete item; 
+        delete item;
     }
 }
 
@@ -258,7 +258,7 @@ quint32 KeyScan::handleModifierKeys(QKeyEvent* event, quint32 virtual_key) {
             return (scanCode == 0x38) ? VK_LMENU : (scanCode == 0x138 ? VK_RMENU : virtual_key);
 
         default:
-            return virtual_key;  
+            return virtual_key;
     }
 }
 
@@ -268,4 +268,3 @@ quint32 KeyScan::handleModifierKeys(QKeyEvent* event, quint32 virtual_key) {
 KeyScan::~KeyScan()
 {
 }
-
