@@ -36,12 +36,33 @@ https://github.com/user-attachments/assets/2daa6481-a006-426d-989b-c17857d22737
     * Add new Qt version and select v6.8.0
     * Set the path to your Qt installation
 1. Clone the repository.
-```
-git clone https://github.com/ItzBlinkzy/KeyScan.git
-```
+    ```
+    git clone https://github.com/ItzBlinkzy/KeyScan.git
+    ```
 6. Open `KeyScan.sln`
 7. Build and Run the Solution.
 
 **Option 3: Build locally with CMake and vcpkg**
+*Ensure Qt 6.8.0 is installed*
+1. **Install vcpkg**:
+   If you haven't installed `vcpkg`, follow the instructions [here](https://github.com/microsoft/vcpkg) to set it up.
 
-[WIP]
+2. **Install CMake**:
+   If you don't have `CMake` installed, download it [here](https://cmake.org/download/).
+
+3. **Clone the repository**:
+   ```bash
+   git clone https://github.com/ItzBlinkzy/KeyScan.git
+   ```
+4. In the root of the repository run the following commands to build and compile the executable.
+    ```bash
+    cmake -B build -DCMAKE_TOOLCHAIN_FILE="C:/MYPATHTOVCPKG/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    ```
+
+    ```bash
+    cmake --build build --config Release
+    ```
+
+    ```bash
+    ./build/Release/KeyScan.exe
+    ```
