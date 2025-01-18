@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="src\RecentKeyList.cpp" />
     <None Include="README.md" />
+    <None Include="resources\english1k.json" />
     <QtRcc Include="resources\KeyScan.qrc" />
     <QtUic Include="resources\KeyScan.ui" />
     <ClCompile Include="src\KeyInputWidget.cpp" />
