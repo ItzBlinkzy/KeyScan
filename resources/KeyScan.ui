@@ -42,35 +42,79 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="standard_typing_test_page">
      <widget class="QWidget" name="typing_test_container" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>40</y>
-        <width>1281</width>
-        <height>651</height>
+        <x>-10</x>
+        <y>10</y>
+        <width>1291</width>
+        <height>621</height>
        </rect>
       </property>
-      <widget class="QLabel" name="label">
+      <widget class="QPushButton" name="start_typing_test_button">
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>-40</y>
-         <width>1181</width>
-         <height>551</height>
+         <x>50</x>
+         <y>120</y>
+         <width>91</width>
+         <height>24</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">* {
-font-size: 60px;
-}</string>
-       </property>
        <property name="text">
-        <string>typing test page [WIP]</string>
+        <string>Start Typing Test</string>
        </property>
+      </widget>
+      <widget class="QWidget" name="GameTypeWidget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>20</y>
+         <width>181</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <widget class="QWidget" name="verticalLayoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>160</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QRadioButton" name="radioButton">
+           <property name="text">
+            <string>Standard</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_2">
+           <property name="text">
+            <string>Pro</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_3">
+           <property name="text">
+            <string>Extreme</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </widget>
     </widget>

@@ -93,8 +93,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\RecentKeyList.cpp" />
+    <ClCompile Include="src\TypingTest.cpp" />
     <None Include="README.md" />
-    <None Include="resources\english1k.json" />
     <QtRcc Include="resources\KeyScan.qrc" />
     <QtUic Include="resources\KeyScan.ui" />
     <ClCompile Include="src\KeyInputWidget.cpp" />
@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RecentKeyList.h" />
+    <QtMoc Include="src\TypingTest.h" />
     <QtMoc Include="src\KeyInputWidget.h" />
     <QtMoc Include="src\KeyScan.h" />
     <QtMoc Include="src\KeyRemapper.h" />
@@ -115,6 +116,9 @@
   <ItemGroup>
     <Image Include="resources\KeyScan.ico" />
     <Image Include="resources\KeyScan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resources\english1k.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

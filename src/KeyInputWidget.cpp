@@ -34,9 +34,6 @@ void KeyInputWidget::setCurrentMode(CaptureMode mode) {
     current_mode = mode;
 }
 
-void redrawBindings() {
-
-}
 
 void KeyInputWidget::keyPressEvent(QKeyEvent* event) {
     qDebug() << "keypress from keyinput running";

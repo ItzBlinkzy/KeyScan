@@ -14,6 +14,8 @@ KeyScan::KeyScan(QWidget *parent)
 {
     this->setFixedSize(1280, 720);
     remapper = new KeyRemapper(this);
+    typing_test = new TypingTest(this);
+
     ui.setupUi(this);
     key_input_widget = new KeyInputWidget(ui.from_key_label, ui.to_key_label, ui.from_key_button, ui.to_key_button, this);
     key_input_widget->setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -109,6 +111,10 @@ KeyScan::KeyScan(QWidget *parent)
         }
     });
 
+    connect(ui.start_typing_test_button, &QPushButton::clicked, this, [this]() {
+        typing_test->startTest();
+    });
+
     // preload the bindings if there are any before (may possibly implement)
     //for (auto& [key, value] : remapper->getRemappedKeys()) {
     //    QString to_key = KeyNameFromVirtualKey(key);
@@ -193,7 +199,6 @@ void KeyScan::keyReleaseEvent(QKeyEvent* event) {
 
     if (buttons.contains(virtual_key)) {
         QPushButton* button = buttons[virtual_key];
-        //f19e0e
         modifyButtonStyle(button, "background-color: #fdba74;");
 
     }

@@ -14,6 +14,8 @@
 #include "RecentKeyList.h"
 #include "KeyRemapper.h"
 #include "KeyInputWidget.h"
+#include "TypingTest.h"
+
 
 // Forward declarations
 class RecentKeyList;
@@ -45,6 +47,7 @@ private:
     RecentKeyList recent_keys;
     KeyRemapper* remapper;
     KeyInputWidget* key_input_widget;
+    TypingTest* typing_test;
 };
 
 
