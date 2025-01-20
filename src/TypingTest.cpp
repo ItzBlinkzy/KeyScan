@@ -8,9 +8,15 @@
 #include <QDebug>
 #include <iostream>
 #include <QDir>
-TypingTest::TypingTest(QObject* parent) : QObject(parent) {
+#include <QWidget>
+#include <QLabel>
 
-	words = getWordsFromFile();
+
+TypingTest::TypingTest(QWidget* words_widget, QObject* parent)
+    : QObject(parent),
+    words_widget(words_widget)
+{
+    words = getWordsFromFile();
 }
 
 TypingTest::~TypingTest() {
@@ -23,19 +29,67 @@ void TypingTest::handleTyping()
 
 void TypingTest::startTest()
 {
+    if (is_playing) return;
+
     auto results = generateTest(GameType::Standard);
        
-    qDebug() << "These are the words that will now be drawn onto the screen to play" << "\n";
-    
     for (auto it = results.begin(); it != results.end(); it++) {
         qDebug() << *it << " ";
     }
+
+    is_playing = true;
+
+    drawWords(results);
      
 }
 
-void TypingTest::drawWords()
-{
+void TypingTest::drawWords(QVector<QString> words) {
+
+    auto generated_words = generateTest(GameType::Standard);
+
+
+    // this is so bad holy shit (im gonna change it later i just want a fast easy way to do this)
+    QHBoxLayout* row_1 = words_widget->findChild<QHBoxLayout*>("words_row1");
+    QHBoxLayout* row_2 = words_widget->findChild<QHBoxLayout*>("words_row2");
+    QHBoxLayout* row_3 = words_widget->findChild<QHBoxLayout*>("words_row3");
+    QHBoxLayout* row_4 = words_widget->findChild<QHBoxLayout*>("words_row4");
+    QHBoxLayout* row_5 = words_widget->findChild<QHBoxLayout*>("words_row5");
+    QHBoxLayout* row_6 = words_widget->findChild<QHBoxLayout*>("words_row6");
+
+    QList<QHBoxLayout*> rows = { row_1, row_2, row_3, row_4, row_5, row_6 };  
+    const int wordsPerRow = 10; 
+
+    int rowIndex = 0;  
+    int wordCount = 0;
+
+    for (int i = 0; i < generated_words.size(); ++i) {
+        // dont go beyond num rows
+        if (rowIndex >= rows.size()) {
+            break;
+        }
+
+        QHBoxLayout* currentRowLayout = rows[rowIndex];
+
+        QLabel* label = new QLabel(generated_words[i]);
+        label->setStyleSheet("font-size: 16px; margin: 5px;");
+
+        currentRowLayout->addWidget(label);
+
+        wordCount++;
+
+        // fill words until it hits limit then reset and go next row
+        if (wordCount >= wordsPerRow) {
+            rowIndex++;
+            wordCount = 0; 
+        }
+    }
+
+    // if parent widget exists, update it
+    if (words_widget->parentWidget()) { 
+        words_widget->parentWidget()->update();
+    }
 }
+
 
 QVector<QString> TypingTest::getWordsFromFile()
 {
