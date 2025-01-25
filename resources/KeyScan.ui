@@ -57,8 +57,8 @@
       <widget class="QPushButton" name="start_typing_test_button">
        <property name="geometry">
         <rect>
-         <x>50</x>
-         <y>120</y>
+         <x>230</x>
+         <y>40</y>
          <width>91</width>
          <height>24</height>
         </rect>
@@ -71,7 +71,7 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>20</y>
+         <y>0</y>
          <width>181</width>
          <height>91</height>
         </rect>
@@ -132,83 +132,15 @@
       <widget class="QWidget" name="words_widget" native="true">
        <property name="geometry">
         <rect>
-         <x>330</x>
-         <y>120</y>
-         <width>631</width>
-         <height>441</height>
+         <x>50</x>
+         <y>90</y>
+         <width>1241</width>
+         <height>501</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">* {
-font-size: 25px;
-}</string>
+        <string notr="true"/>
        </property>
-       <widget class="QWidget" name="horizontalLayoutWidget_13">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>601</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="words_row1"/>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_14">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>70</y>
-          <width>601</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="words_row2"/>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_15">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>140</y>
-          <width>601</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="words_row3"/>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_16">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>220</y>
-          <width>601</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="words_row4"/>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_17">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>290</y>
-          <width>601</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="words_row5"/>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget_18">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>360</y>
-          <width>601</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="words_row6"/>
-       </widget>
       </widget>
      </widget>
     </widget>

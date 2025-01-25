@@ -164,9 +164,10 @@ void KeyScan::keyPressEvent(QKeyEvent* event) {
     }
 
     else if (ui.stackedWidget->currentWidget() == ui.standard_typing_test_page) {
-        // custom handling of this page keyevents.
+        typing_test->keyPressEvent(event);
         return;
     }
+
 
     recent_keys.add(KeyNameFromVirtualKeyCode(virtual_key), ui.recent_key_layout);
 

@@ -16,11 +16,13 @@ public:
 	enum GameType {Standard, Professional, Extreme};
 	void handleTyping();
 	void startTest();
+	void keyPressEvent(QKeyEvent* event);
 private:
 	void drawWords(QVector<QString> words);
 	QVector<QString> getWordsFromFile();
 	QVector<QString> generateTest(GameType game);
 	QWidget* words_widget;
-	QVector<QString> words;
+	QVector<QString> all_words;
+	QVector<QString> generated_words;
 	bool is_playing = false;
 };

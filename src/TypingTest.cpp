@@ -11,12 +11,15 @@
 #include <QWidget>
 #include <QLabel>
 
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsTextItem>
 
 TypingTest::TypingTest(QWidget* words_widget, QObject* parent)
     : QObject(parent),
     words_widget(words_widget)
 {
-    words = getWordsFromFile();
+    all_words = getWordsFromFile();
 }
 
 TypingTest::~TypingTest() {
@@ -25,81 +28,95 @@ TypingTest::~TypingTest() {
 
 void TypingTest::handleTyping()
 {
+
 }
 
 void TypingTest::startTest()
 {
     if (is_playing) return;
 
-    auto results = generateTest(GameType::Standard);
-       
-    for (auto it = results.begin(); it != results.end(); it++) {
-        qDebug() << *it << " ";
-    }
-
+    QVector<QString> results = generateTest(GameType::Standard);
+    // watch out here
+    generated_words = results;
     is_playing = true;
 
     drawWords(results);
      
 }
 
-void TypingTest::drawWords(QVector<QString> words) {
+void TypingTest::drawWords(QVector<QString> gen_words) {
+    // Create a new QGraphicsScene
+    QGraphicsScene* scene = new QGraphicsScene(words_widget);
 
-    auto generated_words = generateTest(GameType::Standard);
+    // Create a QGraphicsView to display the scene
+    QGraphicsView* view = new QGraphicsView(scene, words_widget);
+
+    // Set up the QGraphicsView
+    view->setAlignment(Qt::AlignLeft | Qt::AlignTop); // Align the view to the top-left
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setFrameShape(QFrame::NoFrame);
 
 
-    // this is so bad holy shit (im gonna change it later i just want a fast easy way to do this)
-    QHBoxLayout* row_1 = words_widget->findChild<QHBoxLayout*>("words_row1");
-    QHBoxLayout* row_2 = words_widget->findChild<QHBoxLayout*>("words_row2");
-    QHBoxLayout* row_3 = words_widget->findChild<QHBoxLayout*>("words_row3");
-    QHBoxLayout* row_4 = words_widget->findChild<QHBoxLayout*>("words_row4");
-    QHBoxLayout* row_5 = words_widget->findChild<QHBoxLayout*>("words_row5");
-    QHBoxLayout* row_6 = words_widget->findChild<QHBoxLayout*>("words_row6");
-
-    QList<QHBoxLayout*> rows = { row_1, row_2, row_3, row_4, row_5, row_6 };  
-    const int wordsPerRow = 10; 
-
-    int rowIndex = 0;  
-    int wordCount = 0;
-
-    for (int i = 0; i < generated_words.size(); ++i) {
-        // dont go beyond num rows
-        if (rowIndex >= rows.size()) {
-            break;
+    QLayout* layout = words_widget->layout();
+    if (layout) {
+        while (QLayoutItem* item = layout->takeAt(0)) {
+            if (QWidget* widget = item->widget()) {
+                delete widget;
+            }
+            delete item;
         }
+        layout->addWidget(view);
+    }
+    else {
+        QVBoxLayout* newLayout = new QVBoxLayout(words_widget);
+        newLayout->addWidget(view);
+    }
 
-        QHBoxLayout* currentRowLayout = rows[rowIndex];
+    // positioning stuffs
+    int x = 0, y = 0;                 
+    const int wordSpacing = 20;          
+    const int rowSpacing = 10;          
+    const int viewWidth = words_widget->width(); // Available width for words
 
-        QLabel* label = new QLabel(generated_words[i]);
-        label->setStyleSheet("font-size: 16px; margin: 5px;");
+    // add each word to the graphics scene
+    for (const QString& word : gen_words) {
+        QGraphicsTextItem* textItem = scene->addText(word);
 
-        currentRowLayout->addWidget(label);
+        // font, color and font size
+        QFont font("Arial", 35); 
+        textItem->setFont(font);
+        textItem->setDefaultTextColor(Qt::black);
 
-        wordCount++;
+        textItem->setPos(x, y);
 
-        // fill words until it hits limit then reset and go next row
-        if (wordCount >= wordsPerRow) {
-            rowIndex++;
-            wordCount = 0; 
+        x += textItem->boundingRect().width() + wordSpacing;
+
+        // wrap next row if word exceeds the view width
+        if (x > viewWidth - textItem->boundingRect().width()) {
+            x = 0;                
+            y += textItem->boundingRect().height() + rowSpacing; // move to next row
         }
     }
 
-    // if parent widget exists, update it
-    if (words_widget->parentWidget()) { 
-        words_widget->parentWidget()->update();
-    }
+    scene->setSceneRect(0, 0, viewWidth, y + 50); 
+}
+
+void TypingTest::keyPressEvent(QKeyEvent* event) {
+
+    qDebug() << "A BUTTON WAS PRESSED ON TYPING TEST GONNA TRACK";
 }
 
 
 QVector<QString> TypingTest::getWordsFromFile()
 {
-	QVector<QString> words;
+	QVector<QString> all_words;
 	QString file_path = "./resources/english1k.txt";
 	QFile file(file_path);
 
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		qDebug() << "Unable to open file:" << file_path;
-		return words;
+		return all_words;
 	}
 
 	QTextStream in(&file);
@@ -107,12 +124,12 @@ QVector<QString> TypingTest::getWordsFromFile()
 	while (!in.atEnd()) {
 		QString line = in.readLine().trimmed();
 		if (!line.isEmpty()) {
-			words.append(line);
+			all_words.append(line);
 		}
 	}
 
 	file.close();
-	return words;
+	return all_words;
 }
 
 QVector<QString> TypingTest::generateTest(GameType game) {
@@ -134,8 +151,8 @@ QVector<QString> TypingTest::generateTest(GameType game) {
 
     std::vector<QString> temp_out;
     std::sample(
-        words.begin(),
-        words.end(),
+        all_words.begin(),
+        all_words.end(),
         std::back_inserter(temp_out),
         num_words,
         std::mt19937{ std::random_device{}() }
