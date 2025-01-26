@@ -45,13 +45,9 @@ void TypingTest::startTest()
 }
 
 void TypingTest::drawWords(QVector<QString> gen_words) {
-    // Create a new QGraphicsScene
     QGraphicsScene* scene = new QGraphicsScene(words_widget);
-
-    // Create a QGraphicsView to display the scene
     QGraphicsView* view = new QGraphicsView(scene, words_widget);
 
-    // Set up the QGraphicsView
     view->setAlignment(Qt::AlignLeft | Qt::AlignTop); // Align the view to the top-left
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -73,34 +69,53 @@ void TypingTest::drawWords(QVector<QString> gen_words) {
         newLayout->addWidget(view);
     }
 
-    // positioning stuffs
-    int x = 0, y = 0;                 
-    const int wordSpacing = 20;          
-    const int rowSpacing = 10;          
-    const int viewWidth = words_widget->width(); // Available width for words
+    // Positioning setup
+    int x = 0, y = 0;
+    const int letterSpacing = 0; 
+    const int wordSpacing = 20;  
+    const int rowSpacing = 10;  
+    const int viewWidth = words_widget->width(); 
 
-    // add each word to the graphics scene
+    QFont font("Arial", 35);
+    QFontMetrics fontMetrics(font);
+
     for (const QString& word : gen_words) {
-        QGraphicsTextItem* textItem = scene->addText(word);
-
-        // font, color and font size
-        QFont font("Arial", 35); 
-        textItem->setFont(font);
-        textItem->setDefaultTextColor(Qt::black);
-
-        textItem->setPos(x, y);
-
-        x += textItem->boundingRect().width() + wordSpacing;
-
-        // wrap next row if word exceeds the view width
-        if (x > viewWidth - textItem->boundingRect().width()) {
-            x = 0;                
-            y += textItem->boundingRect().height() + rowSpacing; // move to next row
+        int wordWidth = 0;
+        for (const QChar& letter : word) {
+            wordWidth += fontMetrics.horizontalAdvance(letter) + letterSpacing;
         }
+        wordWidth -= letterSpacing; 
+
+        // wrap to next row if full word doesnt fit in the current row
+        if (x + wordWidth > viewWidth) {
+            x = 0;
+            y += fontMetrics.height() + rowSpacing;
+        }
+
+        // Add each letter of the word
+        for (const QChar& letter : word) {
+            // QGraphicsTextItem for each letter to manipulate for colours etc.
+            QGraphicsTextItem* letterItem = scene->addText(QString(letter));
+            letterItem->setFont(font);
+            letterItem->setDefaultTextColor(Qt::black);
+
+            int letterWidth = fontMetrics.horizontalAdvance(letter);
+
+            // Set position
+            letterItem->setPos(x, y);
+
+            // Move x for the next letter
+            x += letterWidth + letterSpacing;
+        }
+
+        // add space after the word
+        x += wordSpacing;
     }
 
-    scene->setSceneRect(0, 0, viewWidth, y + 50); 
+    scene->setSceneRect(0, 0, viewWidth, y + fontMetrics.height());
 }
+
+
 
 void TypingTest::keyPressEvent(QKeyEvent* event) {
 
