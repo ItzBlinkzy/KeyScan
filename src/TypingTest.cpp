@@ -10,10 +10,10 @@
 #include <QDir>
 #include <QWidget>
 #include <QLabel>
-
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsTextItem>
+#include "KeyScan.h"
 
 TypingTest::TypingTest(QWidget* words_widget, QObject* parent)
     : QObject(parent),
@@ -33,15 +33,25 @@ void TypingTest::handleTyping()
 
 void TypingTest::startTest()
 {
-    if (is_playing) return;
+    if (is_playing) {
+        resetGame();
+        return;
+    }
 
+    startGame();
+}
+
+void TypingTest::startGame() {
     QVector<QString> results = generateTest(GameType::Standard);
-    // watch out here
     generated_words = results;
     is_playing = true;
 
     drawWords(results);
-     
+}
+void TypingTest::resetGame() {
+    KeyScan::clearLayout(words_widget->layout());
+
+    startGame();
 }
 
 void TypingTest::drawWords(QVector<QString> gen_words) {
@@ -114,7 +124,6 @@ void TypingTest::drawWords(QVector<QString> gen_words) {
 
     scene->setSceneRect(0, 0, viewWidth, y + fontMetrics.height());
 }
-
 
 
 void TypingTest::keyPressEvent(QKeyEvent* event) {

@@ -16,6 +16,8 @@ public:
 	enum GameType {Standard, Professional, Extreme};
 	void handleTyping();
 	void startTest();
+	void startGame();
+	void resetGame();
 	void keyPressEvent(QKeyEvent* event);
 private:
 	void drawWords(QVector<QString> words);
