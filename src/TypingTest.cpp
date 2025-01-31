@@ -10,24 +10,16 @@
 #include <QDir>
 #include <QWidget>
 #include <QLabel>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsTextItem>
 #include "KeyScan.h"
 
 TypingTest::TypingTest(QWidget* words_widget, QObject* parent)
-    : QObject(parent),
-    words_widget(words_widget)
+    : QObject(parent), words_widget(words_widget),
+    font("Arial", 35), fontMetrics(font) 
 {
     all_words = getWordsFromFile();
 }
 
 TypingTest::~TypingTest() {
-
-}
-
-void TypingTest::handleTyping()
-{
 
 }
 
@@ -50,19 +42,24 @@ void TypingTest::startGame() {
 }
 void TypingTest::resetGame() {
     KeyScan::clearLayout(words_widget->layout());
-
+    letterStates.clear();
+    cursor = 0;
     startGame();
 }
 
 void TypingTest::drawWords(QVector<QString> gen_words) {
-    QGraphicsScene* scene = new QGraphicsScene(words_widget);
+    if (scene) {
+        delete scene;
+        scene = nullptr;
+    }
+
+    scene = new QGraphicsScene(words_widget);
     QGraphicsView* view = new QGraphicsView(scene, words_widget);
 
-    view->setAlignment(Qt::AlignLeft | Qt::AlignTop); // Align the view to the top-left
+    view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setFrameShape(QFrame::NoFrame);
-
 
     QLayout* layout = words_widget->layout();
     if (layout) {
@@ -79,56 +76,115 @@ void TypingTest::drawWords(QVector<QString> gen_words) {
         newLayout->addWidget(view);
     }
 
-    // Positioning setup
-    int x = 0, y = 0;
-    const int letterSpacing = 0; 
-    const int wordSpacing = 20;  
-    const int rowSpacing = 10;  
-    const int viewWidth = words_widget->width(); 
+    wordItems.clear();
 
-    QFont font("Arial", 35);
-    QFontMetrics fontMetrics(font);
+    int x = 0, y = 0;
+    const int letterSpacing = 0;
+    const int wordSpacing = 20;
+    const int rowSpacing = 10;
+    const int viewWidth = words_widget->width();
 
     for (const QString& word : gen_words) {
+        QVector<QGraphicsTextItem*> letterItems;
+        QString displayWord = word;
+
+        if (word == " ") {
+            displayWord = "_";
+        }
+
         int wordWidth = 0;
-        for (const QChar& letter : word) {
+        for (const QChar& letter : displayWord) {
             wordWidth += fontMetrics.horizontalAdvance(letter) + letterSpacing;
         }
-        wordWidth -= letterSpacing; 
+        wordWidth -= letterSpacing;
 
-        // wrap to next row if full word doesnt fit in the current row
         if (x + wordWidth > viewWidth) {
             x = 0;
             y += fontMetrics.height() + rowSpacing;
         }
 
-        // Add each letter of the word
-        for (const QChar& letter : word) {
-            // QGraphicsTextItem for each letter to manipulate for colours etc.
+        for (const QChar& letter : displayWord) {
             QGraphicsTextItem* letterItem = scene->addText(QString(letter));
             letterItem->setFont(font);
             letterItem->setDefaultTextColor(Qt::black);
-
             int letterWidth = fontMetrics.horizontalAdvance(letter);
 
-            // Set position
             letterItem->setPos(x, y);
+            letterItems.append(letterItem);
 
-            // Move x for the next letter
             x += letterWidth + letterSpacing;
         }
 
-        // add space after the word
+        wordItems.append(letterItems);
         x += wordSpacing;
     }
 
     scene->setSceneRect(0, 0, viewWidth, y + fontMetrics.height());
+
+    updateDisplay();
 }
 
-
 void TypingTest::keyPressEvent(QKeyEvent* event) {
+    if (generated_words.isEmpty()) return;
 
-    qDebug() << "A BUTTON WAS PRESSED ON TYPING TEST GONNA TRACK";
+    QString inputChar = event->text();
+
+    if (event->key() == Qt::Key_Backspace) {
+        if (cursor > 0) {
+            int lastIncorrectPos = -1;
+
+            for (int i = cursor - 1; i >= 0; i--) {
+                if (!letterStates.contains(i) || !letterStates[i]) {
+                    lastIncorrectPos = i;
+                    break;
+                }
+            }
+
+            if (lastIncorrectPos != -1) {
+                for (int i = lastIncorrectPos; i < cursor; i++) {
+                    letterStates.remove(i);
+                }
+                cursor = lastIncorrectPos;
+                updateDisplay();
+            }
+        }
+        return;
+    }
+
+    // ignore shift, ctrl keys etc 
+    if (inputChar.isEmpty()) return;
+
+    if (event->key() == Qt::Key_Space) {
+        inputChar = " ";
+    }
+
+    auto letterInfo = getCurrentLetterInfo();
+    if (!letterInfo) return;
+
+    int wordIdx, letterPos;
+    QChar expectedChar;
+    std::tie(wordIdx, letterPos, expectedChar) = *letterInfo;
+
+    if (inputChar == QString(expectedChar)) {
+        letterStates[cursor] = true;
+    }
+    else {
+        letterStates[cursor] = false;
+    }
+
+    cursorNext();
+}
+void TypingTest::cursorNext() {
+    cursor++;
+    updateDisplay();
+    return;
+}
+
+void TypingTest::cursorPrev() {
+    if (cursor <= 0) return;
+    cursor--;
+    updateDisplay();
+    return;
 }
 
 
@@ -182,10 +238,75 @@ QVector<QString> TypingTest::generateTest(GameType game) {
         std::mt19937{ std::random_device{}() }
     );
 
-    // move results from std::vector to  qvector
-    for (const auto& word : temp_out) {
-        generated_words.append(word);
+    // ading spacebar char to the generated_words list also 
+    for (size_t i = 0; i < temp_out.size(); ++i) {
+        generated_words.append(temp_out[i]);
+
+        if (i < temp_out.size() - 1) {
+            generated_words.append(" ");
+        }
     }
 
+
     return generated_words;
+}
+
+
+void TypingTest::updateDisplay() {
+    if (generated_words.isEmpty() || wordItems.empty()) return;
+
+    auto letterInfo = getCurrentLetterInfo();
+    int currentWordIdx = -1, currentLetterPos = -1;
+
+    if (letterInfo) {
+        std::tie(currentWordIdx, currentLetterPos, std::ignore) = *letterInfo;
+    }
+
+    int runningIndex = 0;
+
+    for (int wordIdx = 0; wordIdx < generated_words.size(); ++wordIdx) {
+        const QString& word = generated_words[wordIdx];
+        bool isCurrentWord = (wordIdx == currentWordIdx);
+
+        for (int letterIdx = 0; letterIdx < wordItems[wordIdx].size(); ++letterIdx) {
+            QGraphicsTextItem* item = wordItems[wordIdx][letterIdx];
+            int letterGlobalIndex = runningIndex + letterIdx;
+
+            QColor defaultColor = (word == " ") ? Qt::gray : Qt::black;
+
+            if (letterStates.contains(letterGlobalIndex)) {
+
+                item->setDefaultTextColor(letterStates[letterGlobalIndex] ? Qt::green : Qt::red);
+            }
+            else if (isCurrentWord && letterIdx == currentLetterPos) {
+                item->setDefaultTextColor(Qt::blue);
+            }
+            else {
+                item->setDefaultTextColor(defaultColor);
+            }
+        }
+        runningIndex += word.length();
+    }
+
+    scene->setSceneRect(0, 0, words_widget->width(), wordItems.last().last()->y() + fontMetrics.height());
+}
+
+
+std::optional<std::tuple<int, int, QChar>> TypingTest::getCurrentLetterInfo() const {
+    if (generated_words.isEmpty()) return std::nullopt;
+
+    int runningIndex = 0; 
+
+    for (int wordIdx = 0; wordIdx < generated_words.size(); ++wordIdx) {
+        const QString& word = generated_words[wordIdx];
+
+        if (cursor >= runningIndex && cursor < runningIndex + word.length()) {
+            int letterPos = cursor - runningIndex; 
+            return std::make_tuple(wordIdx, letterPos, word[letterPos]);
+        }
+
+        runningIndex += word.length();
+    }
+
+    return std::nullopt; // this shouldnt happen hopefully cursor (OOB)
 }
