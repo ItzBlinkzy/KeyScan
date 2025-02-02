@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <random>
 #include <vector>
-#include <QTimer>
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
@@ -44,6 +43,7 @@ void TypingTest::resetGame() {
     KeyScan::clearLayout(words_widget->layout());
     letterStates.clear();
     cursor = 0;
+    is_timer_started = false;
     startGame();
 }
 
@@ -126,6 +126,15 @@ void TypingTest::drawWords(QVector<QString> gen_words) {
 
 void TypingTest::keyPressEvent(QKeyEvent* event) {
     if (generated_words.isEmpty()) return;
+
+
+    if (!is_timer_started) {
+        is_timer_started = true;
+        timer->start();
+        elapsed_timer->start();
+        connect(timer, &QTimer::timeout, this, &TypingTest::updateTimer);
+        timer->setInterval(100);
+    }
 
     QString inputChar = event->text();
 
@@ -248,6 +257,11 @@ QVector<QString> TypingTest::generateTest(GameType game) {
     }
 
 
+    for (size_t i = 0; i < generated_words.size(); i++) {
+        total_chars += generated_words[i].length();
+    }
+    qDebug() << "Total chars: " << total_chars;
+
     return generated_words;
 }
 
@@ -309,4 +323,14 @@ std::optional<std::tuple<int, int, QChar>> TypingTest::getCurrentLetterInfo() co
     }
 
     return std::nullopt; // this shouldnt happen hopefully cursor (OOB)
+}
+
+void TypingTest::updateTimer() {
+    uint64_t elapsed_time = elapsed_timer->elapsed();
+    int minutes = (elapsed_time / 60000) % 60;
+    int seconds = (elapsed_time / 1000) % 60; 
+
+    QString mmss_string = QString("Elapsed: %1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+    qDebug() << mmss_string;
+    // setText of label to mmss_strings here...
 }

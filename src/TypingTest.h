@@ -6,7 +6,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsTextItem>
-
+#include <QTimer>
+#include <QElapsedTimer>
 
 class TypingTest : public QObject
 {
@@ -30,18 +31,22 @@ private:
 	QVector<QString> generateTest(GameType game);
 	void updateDisplay();
 	std::optional<std::tuple<int, int, QChar>> getCurrentLetterInfo() const;
+	void updateTimer();
 	QWidget* words_widget;
 	QVector<QString> all_words;
 	QVector<QString> generated_words;
 	bool is_playing = false;
+	bool is_timer_started = false;
 	uint16_t cursor = 0;
 
-	// New members:
+	uint16_t total_chars = 0;
 	QGraphicsScene* scene = nullptr;
-	// Store each word’s letter items. wordItems[i][j] is letter j of word i.
 	QVector<QVector<QGraphicsTextItem*>> wordItems;
 	QMap<int, bool> letterStates;
 	QFont font;
 	QFontMetrics fontMetrics;
 	QGraphicsTextItem* cursorItem = nullptr;  // Store the cursor item
+	QTimer* timer = new QTimer(this);
+	QElapsedTimer* elapsed_timer = new QElapsedTimer();
+
 };
