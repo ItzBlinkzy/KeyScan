@@ -54,25 +54,12 @@
         <height>621</height>
        </rect>
       </property>
-      <widget class="QPushButton" name="start_typing_test_button">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>40</y>
-         <width>91</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Start Typing Test</string>
-       </property>
-      </widget>
       <widget class="QWidget" name="GameTypeWidget" native="true">
        <property name="geometry">
         <rect>
          <x>40</x>
          <y>0</y>
-         <width>181</width>
+         <width>331</width>
          <height>91</height>
         </rect>
        </property>
@@ -114,6 +101,19 @@
           </widget>
          </item>
         </layout>
+       </widget>
+       <widget class="QPushButton" name="start_typing_test_button">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>60</y>
+          <width>91</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Start Typing Test</string>
+        </property>
        </widget>
       </widget>
       <widget class="QLabel" name="label">

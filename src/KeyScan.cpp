@@ -24,7 +24,7 @@ KeyScan::KeyScan(QWidget *parent)
     ui.bindings_layout->setAlignment(Qt::AlignTop);
     ui.bindings_layout->setSpacing(0);
     ui.bindings_layout->setContentsMargins(0, 0, 0, 0);
-
+    ui.start_typing_test_button->setFocusPolicy(Qt::NoFocus);
 
     // make default screen to be key test widget
     ui.stackedWidget->setCurrentWidget(ui.key_test_page);
@@ -113,6 +113,7 @@ KeyScan::KeyScan(QWidget *parent)
 
     connect(ui.start_typing_test_button, &QPushButton::clicked, this, [this]() {
         typing_test->startTest();
+        ui.words_widget->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     });
 
     // preload the bindings if there are any before (may possibly implement)
