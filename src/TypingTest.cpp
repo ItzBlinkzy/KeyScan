@@ -39,9 +39,14 @@ void TypingTest::startGame() {
 
     drawWords(results);
 }
+
+void TypingTest::endGame() {
+    showStatsDisplay();
+}
+
 void TypingTest::resetGame() {
     KeyScan::clearLayout(words_widget->layout());
-    letterStates.clear();
+    letter_states.clear();
     cursor = 0;
     is_timer_started = false;
     startGame();
@@ -125,8 +130,10 @@ void TypingTest::drawWords(QVector<QString> gen_words) {
 }
 
 void TypingTest::keyPressEvent(QKeyEvent* event) {
+    if (!is_playing) return;
     if (generated_words.isEmpty()) return;
 
+    bool is_last_char = cursor == total_chars - 1;
 
     if (!is_timer_started) {
         is_timer_started = true;
@@ -143,7 +150,7 @@ void TypingTest::keyPressEvent(QKeyEvent* event) {
             int lastIncorrectPos = -1;
 
             for (int i = cursor - 1; i >= 0; i--) {
-                if (!letterStates.contains(i) || !letterStates[i]) {
+                if (!letter_states.contains(i) || !letter_states[i]) {
                     lastIncorrectPos = i;
                     break;
                 }
@@ -151,7 +158,7 @@ void TypingTest::keyPressEvent(QKeyEvent* event) {
 
             if (lastIncorrectPos != -1) {
                 for (int i = lastIncorrectPos; i < cursor; i++) {
-                    letterStates.remove(i);
+                    letter_states.remove(i);
                 }
                 cursor = lastIncorrectPos;
                 updateDisplay();
@@ -167,18 +174,20 @@ void TypingTest::keyPressEvent(QKeyEvent* event) {
         inputChar = " ";
     }
 
-    auto letterInfo = getCurrentLetterInfo();
-    if (!letterInfo) return;
+    auto letter_info = getCurrentLetterInfo();
+    int word_idx, letter_pos;
+    QChar expected_char;
+    std::tie(word_idx, letter_pos, expected_char) = *letter_info;
 
-    int wordIdx, letterPos;
-    QChar expectedChar;
-    std::tie(wordIdx, letterPos, expectedChar) = *letterInfo;
+    if (inputChar == QString(expected_char)) {
+        letter_states[cursor] = true;
 
-    if (inputChar == QString(expectedChar)) {
-        letterStates[cursor] = true;
+        if (is_last_char) {
+            endGame();
+        }
     }
     else {
-        letterStates[cursor] = false;
+        letter_states[cursor] = false;
     }
 
     cursorNext();
@@ -256,7 +265,6 @@ QVector<QString> TypingTest::generateTest(GameType game) {
         }
     }
 
-
     for (size_t i = 0; i < generated_words.size(); i++) {
         total_chars += generated_words[i].length();
     }
@@ -288,9 +296,9 @@ void TypingTest::updateDisplay() {
 
             QColor defaultColor = (word == " ") ? Qt::gray : Qt::black;
 
-            if (letterStates.contains(letterGlobalIndex)) {
+            if (letter_states.contains(letterGlobalIndex)) {
 
-                item->setDefaultTextColor(letterStates[letterGlobalIndex] ? Qt::green : Qt::red);
+                item->setDefaultTextColor(letter_states[letterGlobalIndex] ? Qt::green : Qt::red);
             }
             else if (isCurrentWord && letterIdx == currentLetterPos) {
                 item->setDefaultTextColor(Qt::blue);
@@ -305,6 +313,35 @@ void TypingTest::updateDisplay() {
     scene->setSceneRect(0, 0, words_widget->width(), wordItems.last().last()->y() + fontMetrics.height());
 }
 
+void TypingTest::showStatsDisplay() {
+    KeyScan::clearLayout(words_widget->layout());
+
+    QVBoxLayout* stats_layout = new QVBoxLayout();
+    QLabel* win_label = new QLabel("Finished!");
+    win_label->setAlignment(Qt::AlignCenter);
+
+    QFont win_font = win_label->font();
+    win_font.setPointSize(24);
+    win_font.setBold(true);
+    win_label->setFont(win_font);
+    stats_layout->addWidget(win_label);
+
+    QLabel* char_label = new QLabel(QString("Total Characters: %1").arg(total_chars));
+    char_label->setAlignment(Qt::AlignCenter);
+    stats_layout->addWidget(char_label);
+
+    QWidget* stats_widget = new QWidget();
+    stats_widget->setLayout(stats_layout);
+
+    QLayout* current_layout = words_widget->layout();
+    if (current_layout) {
+        current_layout->addWidget(stats_widget);
+    }
+    else {
+        QVBoxLayout* new_layout = new QVBoxLayout(words_widget);
+        new_layout->addWidget(stats_widget);
+    }
+}
 
 std::optional<std::tuple<int, int, QChar>> TypingTest::getCurrentLetterInfo() const {
     if (generated_words.isEmpty()) return std::nullopt;
@@ -331,6 +368,7 @@ void TypingTest::updateTimer() {
     int seconds = (elapsed_time / 1000) % 60; 
 
     QString mmss_string = QString("Elapsed: %1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
-    qDebug() << mmss_string;
+    //qDebug() << mmss_string;
     // setText of label to mmss_strings here...
+
 }

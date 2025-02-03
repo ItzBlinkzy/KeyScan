@@ -21,6 +21,7 @@ public:
 	enum GameType {Standard, Professional, Extreme};
 	void startTest();
 	void startGame();
+	void endGame();
 	void resetGame();
 	void keyPressEvent(QKeyEvent* event);
 private:
@@ -30,6 +31,7 @@ private:
 	QVector<QString> getWordsFromFile();
 	QVector<QString> generateTest(GameType game);
 	void updateDisplay();
+	void showStatsDisplay();
 	std::optional<std::tuple<int, int, QChar>> getCurrentLetterInfo() const;
 	void updateTimer();
 	QWidget* words_widget;
@@ -42,7 +44,7 @@ private:
 	uint16_t total_chars = 0;
 	QGraphicsScene* scene = nullptr;
 	QVector<QVector<QGraphicsTextItem*>> wordItems;
-	QMap<int, bool> letterStates;
+	QMap<int, bool> letter_states;
 	QFont font;
 	QFontMetrics fontMetrics;
 	QGraphicsTextItem* cursorItem = nullptr;  // Store the cursor item
