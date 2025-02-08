@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="standard_typing_test_page">
      <widget class="QWidget" name="typing_test_container" native="true">
@@ -771,6 +771,9 @@ font-weight: bold;
         </item>
         <item>
          <widget class="QPushButton" name="play_again_button">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="styleSheet">
            <string notr="true">
 									   QPushButton {
