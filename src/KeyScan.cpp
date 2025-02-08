@@ -16,7 +16,7 @@ KeyScan::KeyScan(QWidget *parent)
     remapper = new KeyRemapper(this);
 
     ui.setupUi(this);
-    typing_test = new TypingTest(ui.words_widget, ui.time_label, ui.duration_label, ui.wpm_label, ui.accuracy_label, ui.stackedWidget, this);
+    typing_test = new TypingTest(ui.words_widget, ui.time_label, ui.duration_label, ui.wpm_label, ui.accuracy_label, ui.stackedWidget, ui.radio_standard, ui.radio_pro, ui.radio_extreme, this);
     key_input_widget = new KeyInputWidget(ui.from_key_label, ui.to_key_label, ui.from_key_button, ui.to_key_button, this);
     key_input_widget->setAttribute(Qt::WA_TransparentForMouseEvents);
 
@@ -39,15 +39,24 @@ KeyScan::KeyScan(QWidget *parent)
         ui.key_test_page->setFocus();
     });
     connect(ui.action_standard_typing_test, &QAction::triggered, this, &KeyScan::onMenuTypingTestClicked);
-
     connect(ui.action_key_remapper, &QAction::triggered, this, [this]() {
         ui.stackedWidget->setCurrentWidget(ui.remapper_page);
         ui.remapper_page->setFocus();
     });
 
-    // other button click handlers
+    /*
+    *
+    * OTHER BUTTON HANDLERS
+    *
+    */
+    
     connect(ui.reset_keyboard_button, &QPushButton::clicked, this, [this]() {
         resetKeyboard(&ui);
+    });
+
+    // play again button for typing stats page 
+    connect(ui.play_again_button, &QPushButton::clicked, this, [this]() {
+    ui.stackedWidget->setCurrentWidget(ui.standard_typing_test_page);
     });
 
     connect(ui.change_remap_state_button, &QPushButton::clicked, this, [this]() {

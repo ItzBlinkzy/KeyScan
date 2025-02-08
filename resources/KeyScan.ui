@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="standard_typing_test_page">
      <widget class="QWidget" name="typing_test_container" native="true">
@@ -74,7 +74,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QRadioButton" name="radioButton">
+          <widget class="QRadioButton" name="radio_standard">
            <property name="text">
             <string>Standard</string>
            </property>
@@ -84,14 +84,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_2">
+          <widget class="QRadioButton" name="radio_pro">
            <property name="text">
             <string>Pro</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_3">
+          <widget class="QRadioButton" name="radio_extreme">
            <property name="text">
             <string>Extreme</string>
            </property>

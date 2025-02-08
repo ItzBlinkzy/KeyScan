@@ -18,15 +18,21 @@ TypingTest::TypingTest(
     QLabel* wpm_label,
     QLabel* accuracy_label,
     QStackedWidget* stacked_widget,
+    QRadioButton* radio_standard,
+    QRadioButton* radio_pro,
+    QRadioButton* radio_extreme,
     QObject* parent
 )
     : QObject(parent),
     words_widget(words_widget),
     time_label(time_label),
-    duration_label(duration_label),  
-    wpm_label(wpm_label), 
-    accuracy_label(accuracy_label), 
+    duration_label(duration_label),
+    wpm_label(wpm_label),
+    accuracy_label(accuracy_label),
     stacked_widget(stacked_widget),
+    radio_standard(radio_standard),
+    radio_pro(radio_pro),
+    radio_extreme(radio_extreme),
     font("Arial", 35),
     fontMetrics(font)
 {
@@ -49,10 +55,23 @@ void TypingTest::startTest()
 }
 
 void TypingTest::startGame() {
-    QVector<QString> results = generateTest(GameType::Standard);
+    QVector<QString> results;
+    if (radio_standard->isChecked()) {
+        results = generateTest(GameType::Standard);
+    }
+    else if (radio_pro->isChecked()) {
+        results = generateTest(GameType::Professional);
+    }
+    else if (radio_extreme->isChecked()) {
+        results = generateTest(GameType::Extreme);
+    }
+    else {
+        // shouldnt happen but keeping anyway
+        results = generateTest(GameType::Standard);
+    }
+
     generated_words = results;
     is_playing = true;
-
     drawWords(results);
 }
 

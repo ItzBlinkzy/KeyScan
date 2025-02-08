@@ -10,13 +10,26 @@
 #include <QElapsedTimer>
 #include <QLabel>
 #include <QStackedWidget>
+#include <QRadioButton>
+
 class TypingTest: public QObject
 {
 	Q_OBJECT
 
 
 public:
-	explicit TypingTest(QWidget* words_widget, QLabel* time_label, QLabel* duration_label, QLabel* wpm_label, QLabel* accuracy_label, QStackedWidget* stacked_widget, QObject* parent = nullptr);
+	explicit TypingTest(
+		QWidget* words_widget,
+		QLabel* time_label,
+		QLabel* duration_label,
+		QLabel* wpm_label,
+		QLabel* accuracy_label,
+		QStackedWidget* stacked_widget,
+		QRadioButton* radio_standard,
+		QRadioButton* radio_pro,
+		QRadioButton* radio_extreme,
+		QObject* parent = nullptr
+	);
 	~TypingTest();
 	
 	enum GameType {Standard, Professional, Extreme};
@@ -57,4 +70,7 @@ private:
 	QLabel* accuracy_label;
 	QLabel* wpm_label;
 	QStackedWidget* stacked_widget;
+	QRadioButton* radio_standard;
+	QRadioButton* radio_pro;
+	QRadioButton* radio_extreme;
 };
