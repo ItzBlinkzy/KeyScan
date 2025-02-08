@@ -8,14 +8,15 @@
 #include <QGraphicsTextItem>
 #include <QTimer>
 #include <QElapsedTimer>
-
-class TypingTest : public QObject
+#include <QLabel>
+#include <QStackedWidget>
+class TypingTest: public QObject
 {
 	Q_OBJECT
 
 
 public:
-	explicit TypingTest(QWidget* words_widget, QObject* parent = nullptr);
+	explicit TypingTest(QWidget* words_widget, QLabel* time_label, QLabel* duration_label, QLabel* wpm_label, QLabel* accuracy_label, QStackedWidget* stacked_widget, QObject* parent = nullptr);
 	~TypingTest();
 	
 	enum GameType {Standard, Professional, Extreme};
@@ -34,6 +35,7 @@ private:
 	void showStatsDisplay();
 	std::optional<std::tuple<int, int, QChar>> getCurrentLetterInfo() const;
 	void updateTimer();
+	double calculateAccuracy() const;
 	QWidget* words_widget;
 	QVector<QString> all_words;
 	QVector<QString> generated_words;
@@ -50,5 +52,9 @@ private:
 	QGraphicsTextItem* cursorItem = nullptr;  // Store the cursor item
 	QTimer* timer = new QTimer(this);
 	QElapsedTimer* elapsed_timer = new QElapsedTimer();
-
+	QLabel* time_label;
+	QLabel* duration_label;
+	QLabel* accuracy_label;
+	QLabel* wpm_label;
+	QStackedWidget* stacked_widget;
 };

@@ -11,12 +11,28 @@
 #include <QLabel>
 #include "KeyScan.h"
 
-TypingTest::TypingTest(QWidget* words_widget, QObject* parent)
-    : QObject(parent), words_widget(words_widget),
-    font("Arial", 35), fontMetrics(font) 
+TypingTest::TypingTest(
+    QWidget* words_widget,
+    QLabel* time_label,
+    QLabel* duration_label,
+    QLabel* wpm_label,
+    QLabel* accuracy_label,
+    QStackedWidget* stacked_widget,
+    QObject* parent
+)
+    : QObject(parent),
+    words_widget(words_widget),
+    time_label(time_label),
+    duration_label(duration_label),  
+    wpm_label(wpm_label), 
+    accuracy_label(accuracy_label), 
+    stacked_widget(stacked_widget),
+    font("Arial", 35),
+    fontMetrics(font)
 {
     all_words = getWordsFromFile();
 }
+
 
 TypingTest::~TypingTest() {
 
@@ -41,6 +57,7 @@ void TypingTest::startGame() {
 }
 
 void TypingTest::endGame() {
+    KeyScan::clearLayout(words_widget->layout());
     showStatsDisplay();
 }
 
@@ -49,6 +66,8 @@ void TypingTest::resetGame() {
     letter_states.clear();
     cursor = 0;
     is_timer_started = false;
+    elapsed_timer->restart();
+    time_label->setText("00:00");
     startGame();
 }
 
@@ -174,7 +193,14 @@ void TypingTest::keyPressEvent(QKeyEvent* event) {
         inputChar = " ";
     }
 
+
     auto letter_info = getCurrentLetterInfo();
+
+    if (!letter_info) {
+        qDebug() << "getCurrentLetterInfo() returned nullopt, cursor oob";
+        return;
+    }
+
     int word_idx, letter_pos;
     QChar expected_char;
     std::tie(word_idx, letter_pos, expected_char) = *letter_info;
@@ -236,14 +262,14 @@ QVector<QString> TypingTest::generateTest(GameType game) {
     size_t num_words;
 
     if (game == GameType::Standard) {
-        num_words = 36;
+        num_words = 10;
     }
 
     else if (game == GameType::Professional) {
-        num_words = 48;
+        num_words = 24;
     }
     else {
-        num_words = 60;
+        num_words = 36;
     }
 
 
@@ -314,33 +340,25 @@ void TypingTest::updateDisplay() {
 }
 
 void TypingTest::showStatsDisplay() {
-    KeyScan::clearLayout(words_widget->layout());
+    double accuracy = calculateAccuracy();
+    int duration = elapsed_timer->elapsed();
 
-    QVBoxLayout* stats_layout = new QVBoxLayout();
-    QLabel* win_label = new QLabel("Finished!");
-    win_label->setAlignment(Qt::AlignCenter);
-
-    QFont win_font = win_label->font();
-    win_font.setPointSize(24);
-    win_font.setBold(true);
-    win_label->setFont(win_font);
-    stats_layout->addWidget(win_label);
-
-    QLabel* char_label = new QLabel(QString("Total Characters: %1").arg(total_chars));
-    char_label->setAlignment(Qt::AlignCenter);
-    stats_layout->addWidget(char_label);
-
-    QWidget* stats_widget = new QWidget();
-    stats_widget->setLayout(stats_layout);
-
-    QLayout* current_layout = words_widget->layout();
-    if (current_layout) {
-        current_layout->addWidget(stats_widget);
+    double minutes = duration / 60000.0;
+    int correct_chars = 0;
+    for (auto it = letter_states.cbegin(); it != letter_states.cend(); ++it) {
+        if (it.value()) {
+            correct_chars++;
+        }
     }
-    else {
-        QVBoxLayout* new_layout = new QVBoxLayout(words_widget);
-        new_layout->addWidget(stats_widget);
-    }
+    int wpm = static_cast<int>((correct_chars / 5.0) / minutes);
+
+    accuracy_label->setText(QString("Accuracy: %1%").arg(accuracy * 100, 0, 'f', 2));
+    duration_label->setText(QString("Duration: %1:%2")
+        .arg(duration / 60000, 2, 10, QChar('0'))
+        .arg((duration / 1000) % 60, 2, 10, QChar('0')));
+    wpm_label->setText(QString("WPM: %1").arg(wpm));
+
+    stacked_widget->setCurrentIndex(3);
 }
 
 std::optional<std::tuple<int, int, QChar>> TypingTest::getCurrentLetterInfo() const {
@@ -367,8 +385,19 @@ void TypingTest::updateTimer() {
     int minutes = (elapsed_time / 60000) % 60;
     int seconds = (elapsed_time / 1000) % 60; 
 
-    QString mmss_string = QString("Elapsed: %1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
-    //qDebug() << mmss_string;
-    // setText of label to mmss_strings here...
+    QString mmss_string = QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+    time_label->setText(mmss_string);
+}
 
+double TypingTest::calculateAccuracy() const {
+    int char_count = 0;
+    for (auto it = letter_states.cbegin(); it != letter_states.cend(); ++it) {
+        // true if char typed correclty
+        if (it.value()) { 
+            char_count++;
+        }
+    }
+
+    if (total_chars == 0) return 0.0; 
+    return static_cast<double>(char_count) / total_chars;
 }

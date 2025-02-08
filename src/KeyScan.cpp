@@ -16,7 +16,7 @@ KeyScan::KeyScan(QWidget *parent)
     remapper = new KeyRemapper(this);
 
     ui.setupUi(this);
-    typing_test = new TypingTest(ui.words_widget, this);
+    typing_test = new TypingTest(ui.words_widget, ui.time_label, ui.duration_label, ui.wpm_label, ui.accuracy_label, ui.stackedWidget, this);
     key_input_widget = new KeyInputWidget(ui.from_key_label, ui.to_key_label, ui.from_key_button, ui.to_key_button, this);
     key_input_widget->setAttribute(Qt::WA_TransparentForMouseEvents);
 

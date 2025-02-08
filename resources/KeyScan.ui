@@ -35,14 +35,14 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>-10</x>
+      <x>10</x>
       <y>0</y>
       <width>1351</width>
       <height>701</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="standard_typing_test_page">
      <widget class="QWidget" name="typing_test_container" native="true">
@@ -107,9 +107,20 @@
          <rect>
           <x>180</x>
           <y>60</y>
-          <width>91</width>
-          <height>24</height>
+          <width>141</width>
+          <height>31</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+									   QPushButton {
+									   background-color: #FF7043;
+									   border-radius: 4px;
+									   color: white;
+									   font-size: 16px;
+									   padding: 5px;
+									   }
+								   </string>
         </property>
         <property name="text">
          <string>Start Typing Test</string>
@@ -141,6 +152,13 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLabel" name="time_label">
+          <property name="styleSheet">
+           <string notr="true">* {
+font-size: 40px;
+font-weight: bold;
+}
+</string>
+          </property>
           <property name="text">
            <string>00:00</string>
           </property>
@@ -152,6 +170,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="words_widget" native="true">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -682,6 +703,94 @@ font-weight: bold;
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="test_results_page">
+     <widget class="QWidget" name="stats_widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>240</y>
+        <width>701</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#stats_widget {
+border: 1px solid #b45309;
+					   background-color: #FFF3E0;
+}</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget_6">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>701</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="stats_layout">
+        <item>
+         <widget class="QLabel" name="stats_title_label">
+          <property name="styleSheet">
+           <string notr="true">#stats_title_label {
+font-size: 30px;
+font-weight: bold;
+}</string>
+          </property>
+          <property name="text">
+           <string>STATS</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="duration_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="wpm_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="accuracy_label">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="play_again_button">
+          <property name="styleSheet">
+           <string notr="true">
+									   QPushButton {
+									   background-color: #FF7043;
+									   border-radius: 4px;
+									   color: white;
+									   font-size: 18px;
+									   padding: 5px;
+									   }
+								   </string>
+          </property>
+          <property name="text">
+           <string>Play Again</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
    </widget>
    <widget class="QWidget" name="remapper_state_widget" native="true">
     <property name="geometry">
@@ -757,10 +866,16 @@ border-radius: 5%;
          <enum>Qt::FocusPolicy::NoFocus</enum>
         </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton {
-margin: 2px;
-margin-left: 20px;
-}</string>
+         <string notr="true">
+									   QPushButton {
+									   background-color: #FF7043;
+									   border-radius: 4px;
+										border: 2px solid white;
+									   color: white;
+									   font-size: 16;
+									   margin: 3px;
+									   }
+								   </string>
         </property>
         <property name="text">
          <string>Start</string>
