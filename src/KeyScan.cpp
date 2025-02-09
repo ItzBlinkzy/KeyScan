@@ -177,9 +177,16 @@ void KeyScan::keyPressEvent(QKeyEvent* event) {
         typing_test->keyPressEvent(event);
         return;
     }
+    QString text_char = event->text().trimmed();
 
+    qDebug() << "WHY NOT PRTINGING CHAR:: " << text_char;
+    if (!text_char.length()) {
+        recent_keys.add(KeyNameFromVirtualKeyCode(virtual_key), ui.recent_key_layout);  
+    }
+    else {
+        recent_keys.add(text_char, ui.recent_key_layout);
+    }
 
-    recent_keys.add(KeyNameFromVirtualKeyCode(virtual_key), ui.recent_key_layout);
 
     // modifier keys and their right and left equivalents
     virtual_key = handleModifierKeys(event, virtual_key);
