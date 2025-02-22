@@ -215,8 +215,9 @@ void TypingTest::keyPressEvent(QKeyEvent* event) {
 
     auto letter_info = getCurrentLetterInfo();
 
-    if (!letter_info) {
+    if (letter_info == std::nullopt) {
         qDebug() << "getCurrentLetterInfo() returned nullopt, cursor oob";
+        endGame();
         return;
     }
 
