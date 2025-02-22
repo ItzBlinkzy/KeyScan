@@ -54,7 +54,7 @@ https://github.com/user-attachments/assets/2daa6481-a006-426d-989b-c17857d22737
    ```bash
    git clone https://github.com/ItzBlinkzy/KeyScan.git
    ```
-4. In the root of the repository run the following commands to build and compile the executable.
+4. In the **root of the repository** run the following commands to build and compile the executable.
     ```bash
     cmake -B build -DCMAKE_TOOLCHAIN_FILE="C:/MYPATHTOVCPKG/vcpkg/scripts/buildsystems/vcpkg.cmake"
     ```
