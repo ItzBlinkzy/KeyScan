@@ -11,14 +11,14 @@ KeyScan is a simple desktop application for Windows designed for keyboard testin
 
 * Keyboard Testing Screen: Real-time virtual keyboard display that responds to your physical keyboard inputs (test your keys to see which are working or broken)
 
-* **[WIP]** ~~Typing Test: Play a typing game using the top 1000 English words to practice and improve typing speed.~~
+* Typing Test: Play a typing game using the top 1000 English words to practice and improve typing speed.
 
 * Key Remapper: Easily remap any keyboard key to another key of your choice.
 
 ## Demo
 _Demo will be updated as more features are implemented or improved._
 
-https://github.com/user-attachments/assets/2daa6481-a006-426d-989b-c17857d22737
+https://github.com/user-attachments/assets/c815a244-0d81-44b8-bce4-e3b2fbab3b94
 
 ## Installation
 **Option 1: Using Pre-built Binaries**
